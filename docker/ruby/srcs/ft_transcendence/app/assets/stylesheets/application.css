@@ -22,3 +22,8 @@
 	border-radius: 10em;
 	height: 35px;
 }
+
+#navbarDropdownMenuLink {
+	background-color: transparent;
+	border: 1px solid transparent;
+}
