@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
 	before_action :authenticate_user!
 	before_action :check
 	before_action :check_war_state
+	before_action :check_tournament_state
 
 	private
 		def check
@@ -27,6 +28,14 @@ class ApplicationController < ActionController::Base
 			end
 			War.where(state: ["active"]).each do |war|
 				war.update(state: "ended") if war.end_at.past?
+			end
+		end
+
+		def check_tournament_state
+			Tournament.where(status: "started").each do |tournament|
+				if tournament.games.where.not(status: "finished").empty?
+					PickTournamentWinnerJob.perform_later(tournament)
+				end
 			end
 		end
 end
