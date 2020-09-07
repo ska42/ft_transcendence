@@ -36,7 +36,7 @@ document.addEventListener('turbolinks:load', () => {
 		logKey = function(e) {
 			e.preventDefault();
 			var input;
-			if (e.key == 'w')
+			if (e.keyCode == 38 || e.keyCode == 87)
 			{
 				input = { type: "paddle_up", id: inputs_id };
 				sub.perform('input', input);
@@ -44,7 +44,7 @@ document.addEventListener('turbolinks:load', () => {
 				if (paddles[me])
 					paddles[me].goUp();
 			}
-			else if (e.key == 's')
+			else if (e.keyCode == 40 || e.keyCode == 83)
 			{
 				input = { type: "paddle_down", id: inputs_id };
 				sub.perform('input', input);
@@ -52,7 +52,7 @@ document.addEventListener('turbolinks:load', () => {
 				if (paddles[me])
 					paddles[me].goDown();
 			}
-			else if (e.key == ' ')
+			else if (e.keyCode == 32)
 				sub.perform('space', { id: inputs_id });
 			inputs_id++;
 		}
@@ -103,7 +103,7 @@ document.addEventListener('turbolinks:load', () => {
 			connected() {
 				if (!spectate)
 				{
-					document.addEventListener('keypress', logKey);
+					document.addEventListener('keydown', logKey);
 					if ($("#matchmaking-alert").length)
 					{
 						matchmaking.perform('unsubscribe_queue');
@@ -176,7 +176,7 @@ document.addEventListener('turbolinks:load', () => {
 					render.resetCanvas();
 					sub.unsubscribe();
 					if (!spectate)
-						document.removeEventListener('keypress', logKey);
+						document.removeEventListener('keydown', logKey);
 				}
 			}
 		});
