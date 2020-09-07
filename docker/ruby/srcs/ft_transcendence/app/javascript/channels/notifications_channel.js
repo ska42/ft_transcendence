@@ -65,6 +65,7 @@ var notif = consumer.subscriptions.create("NotificationsChannel", {
 
 document.addEventListener('turbolinks:load', () => {
 	var button = $("#game_invite");
+	var default_button = $("#default");
 	if (button)
 	{
 		button.click(function() {
@@ -86,6 +87,15 @@ document.addEventListener('turbolinks:load', () => {
 				},
 				max_points: max_points
 			});
+		});
+	}
+	if (default_button)
+	{
+		default_button.click(function() {
+			var canvas_width = $("#cwidth").val(600);
+			var canvas_height = $("#cheight").val(600);
+			var ball_radius = $("#bradius").val(10);
+			var max_points = $("#max_points").val(5);
 		});
 	}
 });
