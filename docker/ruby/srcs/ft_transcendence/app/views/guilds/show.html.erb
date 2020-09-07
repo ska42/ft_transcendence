@@ -29,16 +29,20 @@
 
 <p>
 	<strong>Officers:</strong>
-	<% (@guild.officers - [@guild.owner]).each do |officer| %>
-		<%= link_to officer.nickname, profile_path(officer) %>
-	<% end %>
+	<ul class="list-group col-3">
+		<% (@guild.officers - [@guild.owner]).each do |officer| %>
+			<li class="list-group-item"><%= link_to officer.nickname, profile_path(officer) %></li>
+		<% end %>
+	</ul>
 </p>
 
 <p>
 	<strong>Members:</strong>
+	<ul class="list-group col-3">
 	<% (@guild.members - @guild.officers).each do |member| %>
-		<%= link_to member.nickname, profile_path(member) %>
+		<li class="list-group-item"><%= link_to member.nickname, profile_path(member) %></li>
 	<% end %>
+	</ul>
 </p>
 
 <%= link_to raw('Wars<br>'), guild_wars_path(@guild) %>

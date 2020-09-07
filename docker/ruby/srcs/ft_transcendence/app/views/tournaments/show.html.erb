@@ -11,15 +11,6 @@
 </p>
 
 <p>
-  <strong>Registered:</strong>
-  	<ul>
-		<% @tournament.users.order("nickname ASC").each do |user| %>
-			<li> <%= user.nickname %> </li>
-		<% end %>
-	</ul>
-</p>
-
-<p>
   <strong>Start at:</strong>
   <%= create_timeago(@tournament.start_time) %>
 </p>
@@ -36,9 +27,9 @@
   </p>
 <% end %>
 
-<hr>
+<h4>Games:</h4>
 <%= render 'games' %>
-<hr>
+<h4>Ranking:</h4>
 <%= render 'ranking' %>
 
 <%= link_to 'Back', tournaments_path %>

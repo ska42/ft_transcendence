@@ -12,100 +12,91 @@
 
 	<body controller="<%= ({controller: controller_path, action: action_name}).to_json %>" mutes="<%= current_user.mutes.map(&:id) if user_signed_in? %>">
 		<% if user_signed_in? %>
-			<nav class="navbar navbar-light" style="align-items: first baseline;">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<%= link_to root_path, class: 'navbar-brand' do %>
 					<img src='<%= asset_path('42-header.svg') %>' height='60px'>
 				<% end %>
 				<% if current_user.otp_accepted == true and current_user.nickname.nil? == false %>
 					<ul class="navbar-nav mr-auto responsive-large" style="flex-direction: row;">
 						<% unless Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:controller][..4] == "admin" %>
-								<button id="play_matchmaking" type="button">Play</button>
-							<%= link_to profiles_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Users</button>
-							<% end %>
-							<%= link_to rooms_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Rooms</button>
-							<% end %>
-							<%= link_to dms_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">dms</button>
-							<% end %>
-							<%= link_to guilds_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Guilds</button>
-							<% end %>
-							<%= link_to wars_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Wars</button>
-							<% end %>
-							<%= link_to tournaments_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Tournaments</button>
-							<% end %>
-							<%= link_to notifications_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Notifs</button>
-							<% end %>
+							<li class="nav-item">
+								<a href="#" id="play_matchmaking" class="nav-link">Matchmaking</a>
+							</li>
+							<li class="nav-item">
+								<a href="/play" class="nav-link">Quick game</a>
+							</li>
+
+							<li class="nav-item">
+								<%= link_to "Users", profiles_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Rooms", rooms_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "DM", dms_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Guilds", guilds_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Notifications", notifications_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Wars", wars_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Tournaments", tournaments_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Games", game_index_path, class: 'nav-link' %>
+							</li>
 							<% if current_user.staff %>
-								<%= link_to admin_rooms_path, class: 'navbar-item navbar-btn' do %>
-									<button type="button">Admins</button>
-								<% end %>
+								<li class="navbar-item">
+									<%= link_to "Admins", admin_rooms_path, class: 'nav-link' %>
+								</li>
 							<% end %>
 						<% else %>
-							<%= link_to root_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Site</button>
-							<% end %>
-							<%= link_to admin_rooms_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Rooms</button>
-							<% end %>
-							<%= link_to admin_guilds_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Guilds</button>
-							<% end %>
-							<%= link_to admin_moderators_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Moderators</button>
-							<% end %>
-							<%= link_to admin_tournaments_path, class: 'navbar-item navbar-btn' do %>
-								<button type="button">Tournaments</button>
-							<% end %>
+							<li class="nav-item">
+								<%= link_to "Site", root_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Rooms", admin_rooms_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Guilds", admin_guilds_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Moderators", admin_moderators_path, class: 'nav-link' %>
+							</li>
+							<li class="nav-item">
+								<%= link_to "Tournaments", admin_tournaments_path, class: 'nav-link' %>
+							</li>
 						<% end %>
 					</ul>
 				<% end %>
-				<ul class="navbar-nav">
-					<li id="navbar-user" class="nav-item navbar-btn">
-						<button type="button" data-toggle="collapse" data-target="#user-logout" aria-controls="user-logout" aria-expanded="false">
-							<img src="<%= url_for(current_user.profile_pic) %>" class="avatar">
-							<span id="nav-nickname" class="responsive-large" userid="<%= current_user[:id] %>" userlogin="<%= current_user[:login] %>" usernickname="<%= current_user[:nickname] %>">
-								<%= current_user[:nickname] %>
-							</span>
-						</button>
-						<div id="user-logout" class="collapse" style="text-align: center;">
-							<% if current_user.otp_accepted == true and current_user.nickname.nil? == false %>
-								<br>
-								<button onClick="reloadWithTurbolinks();">
-									Refresh
-								</button>
-								<br>
-								<%= link_to profile_path(current_user), class: 'navbar-item navbar-btn' do %>
-									<button type="button">My Profile</button>
-								<% end %>
-								<% unless current_user.guild.nil? %>
-									<br>
-									<%= link_to guild_path(current_user.guild), class: 'navbar-item navbar-btn' do %>
-										<button type="button">My Guild</button>
+					<ul class="navbar-nav ml-auto">
+						<li id="navbar-user" class="nav-item dropdown">
+							<button type="button" data-target="#user-logout" aria-controls="user-logout" aria-expanded="false" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+								<img src="<%= url_for(current_user.profile_pic) %>" class="avatar">
+								<span id="nav-nickname" class="responsive-large" userid="<%= current_user[:id] %>" userlogin="<%= current_user[:login] %>" usernickname="<%= current_user[:nickname] %>">
+									<%= current_user[:nickname] %>
+								</span>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="user-logout">
+								<% if current_user.otp_accepted == true and current_user.nickname.nil? == false %>
+									<a class="dropdown-item" href="#" onClick="reloadWithTurbolinks();">Refresh</a>
+									<%= link_to "My profile", profile_path(current_user), class: 'dropdown-item' %>
+									<% unless current_user.guild.nil? %>
+										<%= link_to "My guild", guild_path(current_user.guild), class: 'dropdown-item' %>
 									<% end %>
+									<%= link_to "My friends", profile_friends_path(current_user), class: 'dropdown-item' %>
+									<%= link_to "Muted users", profile_mutes_path(current_user), class: 'dropdown-item' %>
 								<% end %>
-								<br>
-								<%= link_to profile_friends_path(current_user), class: 'navbar-item navbar-btn' do %>
-									<button type="button">My Friends</button>
-								<% end %>
-								<br>
-								<%= link_to profile_mutes_path(current_user), class: 'navbar-item navbar-btn' do %>
-									<button type="button">My Mutes</button>
-								<% end %>
-							<% end %>
-							<hr>
-							<%= link_to raw("
-								<img src=" + asset_path('logout.svg') + " class='logo-svg' style='height: 35px;margin-right: 15px;'>
-								<span>Sign out</span>"),
-							destroy_user_session_path, :method => :delete %>
-						</div>
-					</li>
-				</ul>
+								<div class="dropdown-divider"></div>
+								<%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: 'dropdown-item' %>
+							</div>
+						</li>
+					</ul>
 			</nav>
 		<% end %>
 

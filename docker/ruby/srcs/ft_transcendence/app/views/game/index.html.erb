@@ -1,19 +1,15 @@
 <h1><%= @title %></h1>
 
-<%= link_to 'Back', :back %>
-
-<table style="width: 100%; text-align: center;">
+<table class="table">
 	<tr>
-		<th>ID</th>
-		<th>Player 1</th>
-		<th>Player 2</th>
-		<th>Score</th>
-		<th>Status</th>
-		<th></th>
+		<th scope="col">Player 1</th>
+		<th scope="col">Player 2</th>
+		<th scope="col">Score</th>
+		<th scope="col">Status</th>
+		<th scope="col"></th>
 	</tr>
 	<% @games.each do |game| %>
 		<tr>
-			<td><%= game.id %></td>
 			<td <% if game.winner == game.player1 %> style="font-weight: bold;" <% end %> >
 				<%= game.player1.nickname %>
 			</td>
@@ -26,9 +22,11 @@
 			<td><%= game.status %></td>
 			<% if game.status == "running" %>
 				<td><%= link_to "Spectate", controller: "game", action: "spectate", id: game.id %></td>
+			<% else %>
+				<td></td>
 			<% end %>
 		</tr>
 	<% end %>
 </table>
 
-
+<%= link_to 'Back', :back %>
