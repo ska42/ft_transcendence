@@ -68,6 +68,7 @@ class GameLogic
 		@player_scores = Array.new(2, 0)
 		@player_nicknames = Array.new(2)
 		@player_ready = [false, false]
+		@player_join = [false, false]
 		@state = "pause"
 		@max_points = @game.game_rules.max_points
 		@inputs = Array.new()
@@ -142,6 +143,10 @@ class GameLogic
 
 	def player_ready
 	@player_ready
+	end
+
+	def player_join
+	@player_join
 	end
 
 	def set_nicknames(player1, player2)

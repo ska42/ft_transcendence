@@ -57,12 +57,10 @@ class UpdateGameStateJob < ApplicationJob
 			else
 				valstatus = "waiting for both players to be ready...<br>"
 			end
-			if @gameLogic.player_ready[0]
-				valstatus += "#{@gameLogic.player_nicknames[0]} is ready<br>"
-			end
-			if @gameLogic.player_ready[1]
-				valstatus += "#{@gameLogic.player_nicknames[1]} is ready<br>"
-			end
+			valstatus += "#{@gameLogic.player_nicknames[0]} joined<br>" if @gameLogic.player_join[0]
+			valstatus += "#{@gameLogic.player_nicknames[1]} joined<br>" if @gameLogic.player_join[1]
+			valstatus += "#{@gameLogic.player_nicknames[0]} is ready<br>" if @gameLogic.player_ready[0]
+			valstatus += "#{@gameLogic.player_nicknames[1]} is ready<br>" if @gameLogic.player_ready[1]
 			ActionCable.server.broadcast("game_#{@game.id}", {
 				status: "waiting",
 				msg_status: valstatus,

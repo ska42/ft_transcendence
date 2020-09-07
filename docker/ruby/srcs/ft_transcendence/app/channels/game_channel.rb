@@ -11,6 +11,8 @@ class GameChannel < ApplicationCable::Channel
 		if @game.start_time && @game.start_time.future?
 			return
 		end
+		@gameLogic.player_join[0] = true if @game.player1 == current_user
+		@gameLogic.player_join[1] = true if @game.player2 == current_user
 		if @game.player1 && @game.player2 && current_user != @game.player1 && current_user != @game.player2
 			@gameLogic.addSpec
 		end
@@ -57,6 +59,8 @@ class GameChannel < ApplicationCable::Channel
 
 	def unsubscribed
 		if @game && @game.status != "finished" && (@game.player1 == current_user || @game.player2 == current_user) 
+			@gameLogic.player_join[0] = false if @game.player1 == current_user
+			@gameLogic.player_join[1] = false if @game.player1 == current_user
 			if @game.status == "running"
 				if @game.player1 == current_user
 					@game.winner = @game.player2
