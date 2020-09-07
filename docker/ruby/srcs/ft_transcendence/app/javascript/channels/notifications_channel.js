@@ -63,12 +63,14 @@ var notif = consumer.subscriptions.create("NotificationsChannel", {
 document.addEventListener('turbolinks:load', () => {
 	var button = $("#game_invite");
 	var default_button = $("#default");
+	var invite_button = $("#invite_button");
 
 	var canvas_width;
 	var canvas_height;
 	var ball_radius;
 	var max_points;
 	var to_nickname;
+	var chat_nickname;
 
 	var get_values = function() {
 		canvas_width = $("#cwidth").val();
@@ -95,10 +97,13 @@ document.addEventListener('turbolinks:load', () => {
 	if (button)
 	{
 		button.click(function() {
-			console.log("clicked");
 			get_values();
 			to_nickname = $("#profil_nickname").html();
-			send_notif(to_nickname);
+			if (!to_nickname)
+			{
+				to_nickname = chat_nickname;
+			}
+			send_notif(to_nickname)
 		});
 	}
 	if (default_button)
@@ -108,6 +113,12 @@ document.addEventListener('turbolinks:load', () => {
 			var canvas_height = $("#cheight").val(600);
 			var ball_radius = $("#bradius").val(10);
 			var max_points = $("#max_points").val(5);
+		});
+	}
+	if (invite_button)
+	{
+		invite_button.click(function() {
+			chat_nickname = invite_button.parent().find("#chat_nickname").html();
 		});
 	}
 });
