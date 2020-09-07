@@ -66,27 +66,42 @@ var notif = consumer.subscriptions.create("NotificationsChannel", {
 document.addEventListener('turbolinks:load', () => {
 	var button = $("#game_invite");
 	var default_button = $("#default");
+
+	var canvas_width;
+	var canvas_height;
+	var ball_radius;
+	var max_points;
+	var to_nickname;
+
+	var get_values = function() {
+		canvas_width = $("#cwidth").val();
+		canvas_height = $("#cheight").val();
+		ball_radius = $("#bradius").val();
+		max_points = $("#max_points").val();
+	}
+
+	var send_notif = function(to_user) {
+		notif.perform('send_notif', {
+			type: "play_casual",
+			to: to_user,
+			canvas: {
+				width: canvas_width,
+				height: canvas_height
+			},
+			ball: {
+				radius: ball_radius
+			},
+			max_points: max_points
+		});
+	}
+
 	if (button)
 	{
 		button.click(function() {
 			console.log("clicked");
-			var canvas_width = $("#cwidth").val();
-			var canvas_height = $("#cheight").val();
-			var ball_radius = $("#bradius").val();
-			var max_points = $("#max_points").val();
-			var to_nickname = $("#nickname").html();
-			notif.perform('send_notif', {
-				type: "play_casual",
-				to: to_nickname,
-				canvas: {
-					width: canvas_width,
-					height: canvas_height
-				},
-				ball: {
-					radius: ball_radius
-				},
-				max_points: max_points
-			});
+			get_values();
+			to_nickname = $("#profil_nickname").html();
+			send_notif(to_nickname);
 		});
 	}
 	if (default_button)
