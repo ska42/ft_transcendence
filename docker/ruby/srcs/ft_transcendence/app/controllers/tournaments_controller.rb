@@ -5,12 +5,18 @@ class TournamentsController < ApplicationController
 	# GET /tournaments
 	# GET /tournaments.json
 	def index
-		@tournaments = Tournament.all
+		@tournaments = Tournament.all.order("start_time DESC")
 	end
 
 	# GET /tournaments/1
 	# GET /tournaments/1.json
 	def show
+		@players = {}
+		@tournament.users.each do |player|
+			points = @tournament.games.find_all { |game| game.winner == player }.count
+			@players[points] = [] unless @players[points]
+			@players[points] << player
+		end
 	end
 
 	def register

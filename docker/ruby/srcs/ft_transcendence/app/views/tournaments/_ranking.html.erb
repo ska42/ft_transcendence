@@ -1,19 +1,21 @@
- <table>
-  <thead>
-    <tr>
-      <th>Player</th>
-      <th>Points</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-	<% @tournament.users.each do |player| %>
-	  	<tr>
-	        <td><%= player.nickname %></td>	
-			<td><%= @tournament.games.find_all { |game| game.winner == player }.count %></td>
+<table>
+	<thead>
+		<tr>
+			<th>Player</th>
+			<th>Points</th>
+			<th colspan="3"></th>
 		</tr>
+	</thead>
+
+	<tbody>
+	<% @players.sort.reverse_each do |points, players| %>
+		<% players.sort_by(&:nickname).each do |player| %>
+			<tr>
+				<td><%= player.nickname %></td>	
+				<td><%= points %></td>
+			</tr>
+		<% end %>
 	<% end %>
-  </tbody>
+	</tbody>
 </table>
 

@@ -13,7 +13,7 @@
 <p>
   <strong>Registered:</strong>
   	<ul>
-		<% @tournament.users.each do |user| %>
+		<% @tournament.users.order("nickname ASC").each do |user| %>
 			<li> <%= user.nickname %> </li>
 		<% end %>
 	</ul>

@@ -76,7 +76,7 @@ class GameLogic
 		@processed_inputs[1] = []
 		@spec_count = 0
 		UpdateGameStateJob.perform_later(id)
-		CheckTournamentGameJob.set(wait_until: @game.start_time + 10).perform_later(id) if ["tournament", "war"].include?(@game.mode)
+		CheckTournamentGameJob.set(wait_until: @game.start_time + 300).perform_later(id) if ["tournament", "war"].include?(@game.mode)
 		if ["ranked", "tournament"].include?(@game.mode) and @game.player1.guild and @game.player2.guild
 			guild1 = @game.player1.guild
 			guild2 = @game.player2.guild
