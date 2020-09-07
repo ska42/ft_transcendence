@@ -11,7 +11,7 @@ class GameChannel < ApplicationCable::Channel
 		if @game.start_time && @game.start_time.future?
 			return
 		end
-		if current_user != @game.player1 && current_user != @game.player2
+		if @game.player1 && @game.player2 && current_user != @game.player1 && current_user != @game.player2
 			@gameLogic.addSpec
 		end
 		@gameLogic.send_config
