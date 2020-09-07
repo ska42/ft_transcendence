@@ -1,6 +1,9 @@
 class Room::AdminsController < ApplicationController
 	before_action :set_room
+	before_action :is_member, only: [:destroy]
+	before_action :is_mine, only: [:destroy]
 	before_action :is_owner
+	before_action :not_owner, only: [:destroy]
 	before_action :not_empty, only: [:new, :create]
 
 	# GET /room/admins
@@ -46,16 +49,40 @@ class Room::AdminsController < ApplicationController
 
 	private
 		def set_room
-			@room = Room.find(params[:room_id])
+			begin
+				@room = Room.find(params[:room_id])
+			rescue
+				redirect_to rooms_path, :alert => "Room not found" and return
+			end
+		end
+
+		def is_member
+			begin
+				@user = User.find(params[:id])
+			rescue
+				redirect_to rooms_path, :alert => "User not found" and return
+			end
+		end
+	
+		def is_mine
+			@bypass = (@user == current_user)
 		end
 
 		def is_owner
-			redirect_to @room, :alert => "Missing permission" and return unless @room.owner == current_user or current_user.staff
+			redirect_to @room, :alert => "Missing permission" and return unless @room.owner == current_user or current_user.staff or @bypass
 		end
 
 		# Only allow a list of trusted parameters through.
 		def room_admin_params
 			params.require(:room_admin).permit(:user_id)
+		end
+
+		def not_empty
+			redirect_to room_admins_path, :alert => "No user to add" and return if (User.members - @room.admins).empty?
+		end
+
+		def not_owner
+			redirect_to @room, :alert => "User is owner" and return if @room.owner == @user
 		end
 
 		def not_empty

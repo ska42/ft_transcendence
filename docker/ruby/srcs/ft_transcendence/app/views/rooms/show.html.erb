@@ -9,7 +9,13 @@
 	<%= link_to 'Members', room_members_path(@room) %>
 	<%= link_to 'Bans', room_bans_path(@room) %>
 	<%= link_to 'Mutes', room_mutes_path(@room) %>
+	<% unless @room.owner == current_user %>
+		| 
+		<%= link_to 'Leave admins', room_admin_path(@room, current_user, back: true), method: :delete, remote: true %>
+	<% end %>
 <% end %>
+
+<%= link_to 'Leave', room_member_path(@room, current_user, redirect: rooms_path), method: :delete, remote: true if @room.members.include?(current_user) and @room.admins.exclude?(current_user) %>
 
 <div class="row">
 	<div class="room_users col-12 col-md-3">

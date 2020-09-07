@@ -17,7 +17,7 @@ class GuildsController < ApplicationController
 
 	def invitationspost
 		@invit = GuildInvitMember.find(params[:id])
-		redirect_to invitations_guilds_path, :alert => "Shit, go elsewhere" and return if @invit.user != current_user || @invit.state != "waiting"
+		redirect_to invitations_guilds_path, :alert => "Shit, go elsewhere" and return if @invit.user != current_user or @invit.state != "waiting" or (params[:invitations] and params[:invitations][:state] == "accepted" and current_user.guild and current_user.guild.owner == current_user)
 
 		respond_to do |format|
 			if @invit.update(invit_params)
@@ -91,7 +91,11 @@ class GuildsController < ApplicationController
 	private
 		# Use callbacks to share common setup or constraints between actions.
 		def set_guild
-			@guild = Guild.find(params[:id])
+			begin
+				@guild = Guild.find(params[:id])
+			rescue
+				redirect_to guilds_path, :alert => "Guild not found" and return
+			end
 		end
 
 		def is_mine
