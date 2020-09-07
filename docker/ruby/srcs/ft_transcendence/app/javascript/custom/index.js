@@ -9,6 +9,10 @@ document.addEventListener("turbolinks:load", () => {
 	$('[name=toast-alert]').toast('show').attr('name', 'toast-alert-printed');
 	window.controller = JSON.parse($('body').attr('controller'));
 	window.mutes = JSON.parse($('body').attr('mutes'));
+	$("li.nav-item").click(function() {
+		$("li.nav-item").removeClass("active");
+		$(this).addClass("active");
+	});
 });
 
 window.reloadWithTurbolinks = (function () {
