@@ -22,14 +22,12 @@ var clear_matchmaking = function()
 var notif = consumer.subscriptions.create("NotificationsChannel", {
 
 	connected() {
-	  	console.log("connected to notif");
 	},
 
 	disconnected() {
 	},
 
 	received(data) {
-		console.log(data);
 		if (data.type && data.type == "redirect")
 			Turbolinks.visit("/game/" + data.game.id);
 		else if (data.type && data.type == "invitation")
@@ -42,7 +40,6 @@ var notif = consumer.subscriptions.create("NotificationsChannel", {
 				var new_notif = add_notif(text, "matchmaking-alert");
 				var timer_start = Date.now();
 				interval_matchmaking = setInterval(function() {
-					console.log("interval");
 					var res = (Date.now() - timer_start) / 1000;
 					var minutes = Math.floor(res / 60) % 60;
 					var seconds = Math.floor(res % 60);

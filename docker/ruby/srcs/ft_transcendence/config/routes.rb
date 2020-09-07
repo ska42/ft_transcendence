@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 	resources :game, only: [:index, :show]
 	get '/play', to: 'game#play'
 	get '/test', to: 'game#test'
-	get '/spectate/:id', to: 'game#spectate'
+	get '/spectate/:id', to: 'game#spectate', as: 'spectacle'
 
 	resources :tournaments, only: [:index, :show, :new, :create] do
 		post 'register', on: :member

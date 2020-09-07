@@ -1,24 +1,27 @@
 <h1><%= @title %></h1>
 
+<%= link_to 'Back', :back unless @title == "Games" %>
+
 <table class="table">
 	<tr>
 		<th scope="col">Player 1</th>
-		<th scope="col">Player 2</th>
 		<th scope="col">Score</th>
+		<th scope="col">Player 2</th>
 		<th scope="col">Status</th>
 		<th scope="col"></th>
 	</tr>
 	<% @games.each do |game| %>
 		<tr>
-			<td <% if game.winner == game.player1 %> style="font-weight: bold;" <% end %> >
-				<%= game.player1.nickname %>
+			<td>
+				<%= is_winner_bold(game.player1.nickname, game.player1, game.winner) if game.player1 %>
 			</td>
-			<td <% if game.winner == game.player2 %> style="font-weight: bold;" <% end %> >
-				<% if game.player2 %>
-					<%= game.player2.nickname %>
+			<td>
+				<% if game.status == "finished" %>
+					<%= is_winner_bold(game.player1_pts, game.player1, game.winner) %> - <%= is_winner_bold(game.player2_pts, game.player2, game.winner) %>
 				<% end %>
+			<td>
+				<%= is_winner_bold(game.player2.nickname, game.player2, game.winner) if game.player2 %>
 			</td>
-			<td><%= game.player1_pts %> - <%= game.player2_pts %>
 			<td><%= game.status %></td>
 			<% if game.status == "running" %>
 				<td><%= link_to "Spectate", controller: "game", action: "spectate", id: game.id %></td>
@@ -28,5 +31,3 @@
 		</tr>
 	<% end %>
 </table>
-
-<%= link_to 'Back', :back %>

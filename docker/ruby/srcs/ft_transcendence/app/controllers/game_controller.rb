@@ -1,6 +1,7 @@
 class GameController < ApplicationController
 	before_action :set_game, only: [:show, :spectate]
 	before_action :in_past, only: [:show]
+	before_action :is_mine, only: [:show]
 
 	def index
 		begin
@@ -67,4 +68,7 @@ class GameController < ApplicationController
 		redirect_to back_page, :alert => "Not started" and return if @game.start_time and @game.start_time.future?
 	end
 	
+	def is_mine
+		redirect_to spectacle_path and return if @game.player1 and @game.player2 and @game.player1 != current_user and @game.player2 != current_user
+	end
 end

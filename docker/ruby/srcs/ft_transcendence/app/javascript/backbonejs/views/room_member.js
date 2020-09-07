@@ -34,10 +34,8 @@ window.app.views.RoomMember = Backbone.View.extend({
 	delete: function() {
 		this.model.destroy({
 			success: function(response) {
-				console.log('Successfully DELETED room');
 			},
 			error: function(err) {
-				console.log('Failed to delete room!');
 			}
 		});
 	},

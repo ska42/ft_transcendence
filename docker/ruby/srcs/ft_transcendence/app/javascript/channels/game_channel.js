@@ -14,7 +14,6 @@ document.addEventListener('turbolinks:load', () => {
 		if (logKey)
 			document.removeEventListener('keypress', logKey);
 		sub.unsubscribe();
-		console.log("unsub_game");
 	}
 	var render = new Render(document.querySelector('.myCanvas'));
 	if (render.canvas)
@@ -102,7 +101,6 @@ document.addEventListener('turbolinks:load', () => {
 			game: $('.GameInfo').attr("value")
 			}, {
 			connected() {
-				console.log("sub_game");
 				if (!spectate)
 				{
 					document.addEventListener('keypress', logKey);
@@ -122,13 +120,11 @@ document.addEventListener('turbolinks:load', () => {
 			},
 
 			disconnected() {
-				console.log("game unsub");
 			},
 
 			received(data) {
 				if (data.config)
 				{
-					console.log(data.config);
 					render.config(data.config);
 					render.canvas.width = data.config.canvas.width;
 					render.canvas.height = data.config.canvas.height;

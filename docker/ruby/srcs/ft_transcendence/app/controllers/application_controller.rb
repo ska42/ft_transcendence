@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 	before_action :check
 	before_action :check_war_state
 	before_action :check_tournament_state
+	before_action :check_running_state
 
 	private
 		def check
@@ -35,6 +36,14 @@ class ApplicationController < ActionController::Base
 			Tournament.where(status: "started").each do |tournament|
 				if tournament.games.where.not(status: "finished").empty?
 					PickTournamentWinnerJob.perform_later(tournament)
+				end
+			end
+		end
+
+		def check_running_state
+			Game.where.not(status: "finished").each do |game|
+				if (game.start_time and (game.start_time + 15.minutes).past?) or (game.updated_at + 15.minutes).past?
+					game.update(status: "finished")
 				end
 			end
 		end

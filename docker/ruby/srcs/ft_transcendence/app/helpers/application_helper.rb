@@ -27,4 +27,12 @@ module ApplicationHelper
 		human = datetime.strftime("%H:%M:%S\n%d/%m/%Y")
 		raw("<time class='timeago' datetime='#{encoded}'>#{human}</time>")
 	end
+
+	def is_winner_bold(data, player, winner)
+		if player == winner
+			raw("<b>#{data}</b>")
+		else
+			data
+		end
+	end
 end

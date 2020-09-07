@@ -72,11 +72,11 @@
 	<tbody>
 		<% @matchs_history.each do |match| %>
 			<tr>
-				<td><%= set_bold(match.player1.nickname, match.player1, match.winner) %></td>
-				<td><%= set_bold(match.player1_pts, match.player1, match.winner) %></td>
+				<td><%= is_winner_bold(match.player1.nickname, match.player1, match.winner) %></td>
+				<td><%= is_winner_bold(match.player1_pts, match.player1, match.winner) %></td>
 				<td>-</td>
-				<td><%= set_bold(match.player2_pts, match.player2, match.winner) %></td>
-				<td><%= set_bold(match.player2.nickname, match.player2, match.winner) %></td>
+				<td><%= is_winner_bold(match.player2_pts, match.player2, match.winner) %></td>
+				<td><%= is_winner_bold(match.player2.nickname, match.player2, match.winner) %></td>
 				<td><%= create_timeago(match.updated_at) %></td>
 			</tr>
 		<% end %>

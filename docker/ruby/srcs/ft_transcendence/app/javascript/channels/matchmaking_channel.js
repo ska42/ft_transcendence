@@ -5,11 +5,9 @@ var matchmaking;
 
 export default matchmaking = consumer.subscriptions.create("MatchmakingChannel", {
 	connected() {
-		console.log("connected matchmaking");
 	},
 
 	disconnected() {
-		console.log("disconnected matchmaking");
 	},
 
 	received(data) {
