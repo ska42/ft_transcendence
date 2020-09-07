@@ -13,13 +13,13 @@
 	<body controller="<%= ({controller: controller_path, action: action_name}).to_json %>" mutes="<%= current_user.mutes.map(&:id) if user_signed_in? %>">
 		<% if user_signed_in? %>
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<%= link_to root_path, class: 'navbar-brand' do %>
+					<img src='<%= asset_path('42-header.svg') %>' height='60px'>
+				<% end %>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-					<%= link_to root_path, class: 'navbar-brand' do %>
-						<img src='<%= asset_path('42-header.svg') %>' height='60px'>
-					<% end %>
 					<% if current_user.otp_accepted == true and current_user.nickname.nil? == false %>
 						<ul class="navbar-nav mr-auto responsive-large">
 							<% unless Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:controller][..4] == "admin" %>
