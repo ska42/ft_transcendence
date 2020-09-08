@@ -4,9 +4,11 @@
 	Member since: <b><%= create_timeago(@profile.created_at) %></b>
 </p>
 
-<p>
-	Status: <b><%= @profile.state %></b>
-</p>
+<% if @profile != current_user %>
+	<p>
+		Status: <b><%= @profile.state %></b>
+	</p>
+<% end %>
 
 <p>
 	42 login: <b><%= @profile.login %></b>
