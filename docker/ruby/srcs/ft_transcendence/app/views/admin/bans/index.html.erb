@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Bans</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Login</th>
+      <th scope="col">Reason</th>
+      <th scope="col">By</th>
+	  <th scope="col">Last</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_bans.each do |admin_ban| %>
+      <tr>
+        <td><%= admin_ban.login %></td>
+        <td><%= admin_ban.reason %></td>
+        <td><%= admin_ban.user.nickname %></td>
+        <td><%= create_timeago(admin_ban.updated_at) %></td>
+        <td><%= link_to 'Edit', edit_admin_ban_path(admin_ban) %></td>
+        <td><%= link_to 'Destroy', admin_ban_path(admin_ban), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Ban', new_admin_ban_path %>

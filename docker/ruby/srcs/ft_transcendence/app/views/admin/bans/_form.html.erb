@@ -1,0 +1,19 @@
+<% url = admin_bans_path unless url %>
+<%= form_with(model: admin_ban, url: url) do |form| %>
+  <div class="field">
+    <%= form.label :login %>
+    <%= form.text_field :login %>
+    <%= form.error_for :login %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reason %>
+    <%= form.text_field :reason %>
+    <%= form.error_for :reason %>
+	<p>This case is optional & confidential. Users will never see that</p>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

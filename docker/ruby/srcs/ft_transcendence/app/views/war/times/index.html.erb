@@ -2,14 +2,14 @@
 
 <h1>War Times</h1>
 
-<table>
+<table class="table">
 	<thead>
 		<tr>
-			<th>ID</td>
-			<th>Start at</th>
-			<th>End at</th>
-			<th>Played games</th>
-			<th>Unanswered</th>
+			<th scope="col">ID</td>
+			<th scope="col">Start at</th>
+			<th scope="col">End at</th>
+			<th scope="col">Games</th>
+			<th scope="col">Unanswered</th>
 			<th colspan="3"></th>
 		</tr>
 	</thead>
@@ -20,7 +20,7 @@
 				<td><%= war_time.id %></td>
 				<td><%= create_timeago(war_time.start_at) %></td>
 				<td><%= create_timeago(war_time.end_at) %></td>
-				<td><%= link_to 'Games', war_time_game_index_path(@war, war_time) %></td>
+				<td><%= link_to 'Open', war_time_game_index_path(@war, war_time) %></td>
 				<td><%= war_time.unanswered %>/<%= war_time.max_unanswered %></td>
 				<% if @war.guild1.officers.include?(current_user) and @war.state == "waiting for war times" %>
 					<td><%= link_to 'Edit', edit_war_time_path(@war, war_time) %></td>

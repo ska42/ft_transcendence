@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Destroy', room_path(@room, back: true), method: :delete, remote: true %> | 
+<%= link_to 'Destroy', room_path(@room, back: true), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %> | 
 <%= link_to 'Back', admin_rooms_path %>
 <br>
 

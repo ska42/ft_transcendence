@@ -12,15 +12,16 @@
 
 	<body controller="<%= ({controller: controller_path, action: action_name}).to_json %>" mutes="<%= current_user.mutes.map(&:id) if user_signed_in? %>">
 		<% if user_signed_in? %>
+			<% @navbar = true unless @navbar %>
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-				<%= link_to root_path, class: 'navbar-brand' do %>
-					<img src='<%= asset_path('42-header-white.svg') %>' height='60px'>
-				<% end %>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-					<% if current_user.otp_accepted == true and current_user.nickname.nil? == false %>
+				<% if @navbar and current_user.otp_accepted == true and current_user.nickname.nil? == false and Ban.exists?(login: current_user.login) == false %>
+					<%= link_to root_path, class: 'navbar-brand' do %>
+						<img src='<%= asset_path('42-header-white.svg') %>' height='60px'>
+					<% end %>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 						<ul class="navbar-nav mr-auto responsive-large">
 							<% unless Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:controller][..4] == "admin" %>
 								<li class="nav-item">
@@ -64,15 +65,18 @@
 									<%= link_to "Guilds", admin_guilds_path, class: 'nav-link' %>
 								</li>
 								<li class="nav-item">
-									<%= link_to "Moderators", admin_moderators_path, class: 'nav-link' %>
+									<%= link_to "Tournaments", admin_tournaments_path, class: 'nav-link' %>
 								</li>
 								<li class="nav-item">
-									<%= link_to "Tournaments", admin_tournaments_path, class: 'nav-link' %>
+									<%= link_to "Bans", admin_bans_path, class: 'nav-link' %>
+								</li>
+								<li class="nav-item">
+									<%= link_to "Moderators", admin_moderators_path, class: 'nav-link' %>
 								</li>
 							<% end %>
 						</ul>
-					<% end %>
-				</div>
+					</div>
+				<% end %>
 				<div class="dropdown">
 					<button class="dropdown-toggle bg-dark" type="button" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<img src="<%= url_for(current_user.profile_pic) %>" class="avatar">
@@ -80,8 +84,8 @@
 							<%= current_user[:nickname] %>
 						</span>
 					</button>
-					<div class="dropdown-menu dropdown-menu-right navbar-dark bg-dark" aria-labelledby="navbarDropdown" id="user-logout">
-						<% if current_user.otp_accepted == true and current_user.nickname.nil? == false %>
+					<div class="dropdown-menu dropdown-menu-right navbar-dark bg-dark" aria-labelledby="navbarDropdown" id="user-logout" style="text-align: center;">
+						<% if @navbar and current_user.otp_accepted == true and current_user.nickname.nil? == false and Ban.exists?(login: current_user.login) == false %>
 							<a class="nav-link" href="#" onClick="reloadWithTurbolinks();">Refresh</a>
 							<%= link_to "My profile", profile_path(current_user), class: 'nav-link' %>
 							<% unless current_user.guild.nil? %>

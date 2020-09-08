@@ -2,14 +2,13 @@
 
 <h1>Admin Tournaments</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Mode</th>
-      <th>Max player</th>
-      <th>Registered</th>
-      <th>Points award</th>
-      <th>Start time</th>
+      <th scope="col">Mode</th>
+      <th scope="col">Players</th>
+      <th scope="col">Points award</th>
+      <th scope="col">Start time</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,8 +17,7 @@
     <% @tournaments.each do |tournament| %>
       <tr>
         <td><%= tournament.mode %></td>
-        <td><%= tournament.max_player %></td>
-        <td><%= tournament.users.count %></td>
+        <td><%= "#{tournament.users.count}/#{tournament.max_player}" %></td>
         <td><%= tournament.points_award %></td>
         <td><%= tournament.start_time %></td>
         <td><%= link_to 'Show', tournament %></td>

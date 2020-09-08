@@ -1,18 +1,28 @@
 class ApplicationController < ActionController::Base
 	before_action :authenticate_user!
+	before_action :is_ban
 	before_action :check
 	before_action :check_war_state
 	before_action :check_tournament_state
 	before_action :check_running_state
 
 	private
+		def is_ban
+			if user_signed_in? and check_sign_out and Ban.exists?(login: current_user.login)
+				render :file => 'public/403.html', :status => :forbidden, isbanned: true
+				@navbar = false
+			end
+		end
+
 		def check
 			if user_signed_in? && check_sign_out && (controller_path != "profiles" || (action_name != "otp" && action_name != "otppost"))
 				redirect_to otp_profiles_path, :alert => "Enter your otp code" and return unless current_user.otp_accepted == true
+				@navbar = false
 			end
 
 			if user_signed_in? && check_sign_out && (controller_path != "profiles" || (action_name != "edit" && action_name != "update")) && current_user.otp_accepted == true
 				redirect_to edit_profile_path(current_user), :alert => "You need to pick a nickname" unless current_user.nickname
+				@navbar = false
 			end
 		end
 

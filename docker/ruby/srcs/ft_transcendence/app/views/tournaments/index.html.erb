@@ -6,8 +6,7 @@
   <thead>
     <tr>
       <th scope="col">Mode</th>
-      <th scope="col">Max player</th>
-      <th scope="col">Registered</th>
+      <th scope="col">Players</th>
       <th scope="col">Points award</th>
       <th scope="col">Start time</th>
       <th colspan="2"></th>
@@ -18,10 +17,9 @@
     <% @tournaments.each do |tournament| %>
       <tr>
         <td><%= tournament.mode %></td>
-        <td><%= tournament.max_player %></td>
-        <td><%= tournament.users.count %></td>
+        <td><%= "#{tournament.users.count}/#{tournament.max_player}" %></td>
         <td><%= tournament.points_award %></td>
-        <td><%= tournament.start_time %></td>
+        <td><%= create_timeago(tournament.start_time) %></td>
         <td><%= link_to 'Show', tournament %></td>
         <% if Time.now < tournament.start_time and !current_user.tournaments.include?(tournament) %>
           <td><%= link_to 'Register', register_tournament_path(tournament), method: :post, remote: true %></td>

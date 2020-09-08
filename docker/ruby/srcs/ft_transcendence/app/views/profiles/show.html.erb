@@ -57,15 +57,14 @@
 
 <h3>Match history</h3>
 
-<table style="text-align: center;">
+<table class="table">
 	<thead>
 		<tr>
-			<th>Player 1</th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th>Player 2</th>
-			<th>Date</th>
+			<th scope="col">Player 1</th>
+			<th scope="col"></th>
+			<th scope="col">Player 2</th>
+			<th scope="col">Date</th>
+			<th colspan="3"></th>
 		</tr>
 	</thead>
 
@@ -73,11 +72,14 @@
 		<% @matchs_history.each do |match| %>
 			<tr>
 				<td><%= is_winner_bold(match.player1.nickname, match.player1, match.winner) %></td>
-				<td><%= is_winner_bold(match.player1_pts, match.player1, match.winner) %></td>
-				<td>-</td>
-				<td><%= is_winner_bold(match.player2_pts, match.player2, match.winner) %></td>
+				<td>
+					<%= is_winner_bold(match.player1_pts, match.player1, match.winner) %>
+					-
+					<%= is_winner_bold(match.player2_pts, match.player2, match.winner) %>
+				</td>
 				<td><%= is_winner_bold(match.player2.nickname, match.player2, match.winner) %></td>
 				<td><%= create_timeago(match.updated_at) %></td>
+				<td><%= link_to 'Open', match %></td>
 			</tr>
 		<% end %>
 	</tbody>

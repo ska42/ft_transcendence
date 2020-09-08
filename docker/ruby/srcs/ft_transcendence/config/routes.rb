@@ -59,6 +59,7 @@ Rails.application.routes.draw do
 		resources :guilds, only: [:index, :show]
 		resources :moderators, only: [:index, :new, :create, :destroy]
 		resources :tournaments, controller: 'tournaments'
+		resources :bans, only: [:index, :new, :create, :edit, :update, :destroy]
 	end
 
 	namespace :api do
