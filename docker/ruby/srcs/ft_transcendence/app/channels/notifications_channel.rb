@@ -12,7 +12,7 @@ class NotificationsChannel < ApplicationCable::Channel
 		if data["type"] == "play_casual"
 			if GameLogic.check_rules(data)
 				valto_user = User.find_by(nickname: data["to"])
-				if valfrom_user != valto_user
+				if valfrom_user != valto_user && valto_user
 					valgame_rules = GameRule.create(canvas_width: data["canvas"]["width"].to_i, canvas_height: data["canvas"]["height"].to_i, ball_radius: data["ball"]["radius"].to_i, max_points: data["max_points"].to_i)
 					valgame = Game.create(player1: valfrom_user, player2: valto_user, status: "waiting", mode: "casual", game_rules: valgame_rules)
 					valmessage = valfrom_user.nickname + " invited you to play."
