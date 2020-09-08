@@ -5,7 +5,7 @@ import Render from "../custom/render"
 import Paddle from "../custom/paddle"
 import Ball from "../custom/ball"
 
-var sub;
+var sub = null;
 var logKey;
 
 document.addEventListener('turbolinks:load', () => {
@@ -14,6 +14,7 @@ document.addEventListener('turbolinks:load', () => {
 		if (logKey)
 			document.removeEventListener('keypress', logKey);
 		sub.unsubscribe();
+		sub = null;
 	}
 	var render = new Render(document.querySelector('.myCanvas'));
 	if (render.canvas)
