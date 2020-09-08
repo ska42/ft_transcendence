@@ -40,7 +40,8 @@ module ApplicationHelper
 		out = link_to user.nickname, profile_path(user)
 		game = Game.where("status = ? AND (player1_id = ? OR player2_id = ?)", "running", user, user)
 		if played and user.state == "online" and game.empty? == false
-			out += link_to 'Playing!', game_path(@game)
+			out += " | "
+			out += link_to 'Playing!', game_path(game.last)
 		end
 		out
 	end
