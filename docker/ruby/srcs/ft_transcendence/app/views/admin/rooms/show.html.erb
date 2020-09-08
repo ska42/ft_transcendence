@@ -13,6 +13,7 @@
 		<p><b>Admins</b></p>
 		<% @admins.each do |user| %>
 			<p>
+				<%= link_to '<<', room_owners_path(@room, owner_id: user, back: true), method: :post, remote: true %>
 				<%= create_user_link(user) %>
 				<%= link_to '>>', room_admin_path(@room, user, back: true), method: :delete, remote: true %>
 			</p>

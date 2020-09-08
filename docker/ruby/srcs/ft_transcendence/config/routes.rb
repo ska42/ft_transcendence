@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 		resources :bans, controller: 'room/bans'
 		resources :members, controller: 'room/members', only: [:index, :new, :create, :destroy]
 		resources :admins, controller: 'room/admins', only: [:index, :new, :create, :destroy]
+		resources :owners, controller: 'room/owners', only: [:new, :create]
 	end
 
 	resources :room_messages, only: [:create]
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
 		resources :members, controller: 'guild/members', only: [:index, :destroy]
 		resources :officers, controller: 'guild/officers', only: [:index, :new, :create, :destroy]
 		resources :wars, only: [:index]
+		resources :owners, controller: 'guild/owners', only: [:new, :create]
 	end
 
 	resources :wars do

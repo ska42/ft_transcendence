@@ -12,6 +12,7 @@
 		<p><b>Officers</b></p>
 		<% @officers.each do |user| %>
 			<p>
+				<%= link_to '<<', guild_owners_path(@guild, owner_id: user, back: true), method: :post, remote: true %>
 				<%= create_user_link(user) %>
 				<%= link_to '>>', guild_officer_path(@guild, user, back: true), method: :delete, remote: true %>
 			</p>

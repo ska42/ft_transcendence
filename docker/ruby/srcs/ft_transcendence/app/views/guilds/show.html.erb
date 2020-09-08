@@ -5,11 +5,13 @@
 <p id="notice"><%= notice %></p>
 
 <% if @guild.owner == current_user %>
-        <%= link_to 'Officers', guild_officers_path(@guild) %>
+	<%= link_to 'Leave owner', new_guild_owner_path(@guild) %>
+	| 
+	<%= link_to 'Officers', guild_officers_path(@guild) %>
 <% end %>
 <% if @guild.officers.include?(current_user) %>
-        <%= link_to 'Members', guild_members_path(@guild) %>
-        <%= link_to 'Invitations', guild_invites_path(@guild) %>
+	<%= link_to 'Members', guild_members_path(@guild) %>
+	<%= link_to 'Invitations', guild_invites_path(@guild) %>
 <% end %>
 
 <p>

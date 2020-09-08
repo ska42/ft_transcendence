@@ -3,6 +3,7 @@
 </h1>
 <% if @room.owner == current_user %>
 	<button onClick="updateSettings()">Settings</button>
+	<%= link_to 'Leave owner', new_room_owner_path(@room) %>
 	<%= link_to 'Admins', room_admins_path(@room) %>
 <% end %>
 <% if @room.admins.include?(current_user) %>

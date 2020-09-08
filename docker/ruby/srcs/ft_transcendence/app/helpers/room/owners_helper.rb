@@ -1,0 +1,2 @@
+module Room::OwnersHelper
+end

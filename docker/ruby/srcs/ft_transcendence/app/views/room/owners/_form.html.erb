@@ -1,0 +1,10 @@
+<%= form_with(url: room_owners_path) do |form| %>
+	<div class="field">
+		<%= form.label :owner_id %>
+		<%= form.collection_select :owner_id, @room_admins, :id, :nickname %>
+	</div>
+
+	<div class="actions">
+		<%= form.submit %>
+	</div>
+<% end %>
