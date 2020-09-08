@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to raw("Invitations (<b>" + current_user.receive_invites.where(state: "waiting").count.to_s + "</b>)"), invitations_guilds_path %>
-
-
 <h1>Guilds</h1>
+<br>
+
+<%= link_to raw("Invitations (<b>" + current_user.receive_invites.where(state: "waiting").count.to_s + "</b>)"), invitations_guilds_path %>
+<br>
 
 <table class="table">
   <thead>
