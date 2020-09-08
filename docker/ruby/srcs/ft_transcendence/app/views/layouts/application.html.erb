@@ -8,6 +8,7 @@
 		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 		<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 		<meta name="viewport" content="width=device-width" />
+		<meta name="turbolinks-cache-control" content="no-cache">
 	</head>
 
 	<body controller="<%= ({controller: controller_path, action: action_name}).to_json %>" mutes="<%= current_user.mutes.map(&:id) if user_signed_in? %>">
