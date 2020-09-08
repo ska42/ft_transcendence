@@ -23,11 +23,18 @@ $(document).on('turbolinks:load', function () {
 					content.find('[data-role="message-user"]').append('<span id="chat_nickname">' + data.content.name.display + '</span>');
 					content.find('[id="chat_nickname"]').wrap("<a href =" + data.content.link_profile + "></a>");
 					if (content.find('[id="chat_nickname"]').html() != $("#nav-nickname").attr("usernickname"))
-						content.find('[data-role="message-user"]').append(' <button type="button" data-toggle="modal" data-target="#exampleModal" id="invite_button">Invite to play</button>')
+						content.find('[data-role="message-user"]').append(' <button type="button" data-toggle="modal" data-target="#exampleModal" class="invite_button">Invite to play</button>')
 					content.find('[data-role="message-text"]').text(data.content.message);
 					content.find('[data-role="message-date"] > time').attr("datetime", data.content.date.format).text(data.content.date.human).addClass("timeago");
 					element.prepend(content);
 					$("time.timeago").timeago();
+					window.invite_button = $(".invite_button");
+					if (window.invite_button)
+					{
+						window.invite_button.click(function() {
+							window.chat_nickname = $(this).parent().find("#chat_nickname").html();
+						});
+					}
 				}
 			}
 			else if (data.type == "join" || data.type == "left")
