@@ -63,7 +63,7 @@ var notif = consumer.subscriptions.create("NotificationsChannel", {
 document.addEventListener('turbolinks:load', () => {
 	var button = $("#game_invite");
 	var default_button = $("#default");
-	var invite_button = $("#invite_button");
+	var invite_button = $(".invite_button");
 
 	var canvas_width;
 	var canvas_height;
@@ -103,7 +103,6 @@ document.addEventListener('turbolinks:load', () => {
 			{
 				to_nickname = chat_nickname;
 			}
-			console.log(to_nickname);
 			send_notif(to_nickname)
 		});
 	}
@@ -119,7 +118,7 @@ document.addEventListener('turbolinks:load', () => {
 	if (invite_button)
 	{
 		invite_button.click(function() {
-			chat_nickname = invite_button.parent().find("#chat_nickname").html();
+			chat_nickname = $(this).parent().find("#chat_nickname").html();
 		});
 	}
 });
