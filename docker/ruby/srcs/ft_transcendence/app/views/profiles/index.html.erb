@@ -1,16 +1,22 @@
-<h3>Users</h3>
+<h2>Users</h2>
+<br>
 
 <table style="width: 100%; text-align: center;">
+	<thead>
 	<tr>
 		<th>Nickname</th>
 		<th>Profile image</th>
+		<th>Rank</th>
 		<th>Status</th>
 		<th></th>
 	</tr>
+	</thead>
+	<tbody>
 	<% @profiles.each do |profile| %>
-		<tr>
+		<tr style="cursor: pointer;">
 			<td><%= create_user_link(profile) %></td>
 			<td><img src="<%= url_for(profile.profile_pic) if profile.profile_pic.attached? %>" style="max-height: 100px; max-width: 100px;"></td>
+			<td><%= profile.rank %></td>
 			<td>
 				<% if profile.state == "online" and Game.where("status = ? AND (player1_id = ? OR player2_id = ?)", "running", profile, profile).empty? == false %>
 					In a game
@@ -20,4 +26,12 @@
 			</td>
 		</tr>
 	<% end %>
+	</tbody>
 </table>
+
+<script>
+	$("tbody tr").click(function() {
+		var link = $(this).find("a").attr("href");
+		Turbolinks.visit(link);
+	});
+</script>
