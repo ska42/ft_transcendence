@@ -23,7 +23,16 @@
 	height: 35px;
 }
 
-#navbarDropdownMenuLink {
+#navbarDropdown {
+	border: 1px solid transparent;
+}
+
+.nav-link {
 	background-color: transparent;
 	border: 1px solid transparent;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-link:hover {
+	color: rgba(255, 255, 255, 0.75);
 }
