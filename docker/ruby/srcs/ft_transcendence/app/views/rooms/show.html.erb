@@ -49,7 +49,7 @@
 						<div class="col">
 							<div class="message-content">
 								<p class="mb-0 ml-1">
-									<%= link_to profile_path(current_user) do %>
+									<%= link_to profile_path(room_message.user) do %>
 										<%= "#{room_message.user.guild.anagram} | " if room_message.user.guild %>
 										<span id="chat_nickname"><%= room_message.user.nickname %></span>
 									<% end %>
