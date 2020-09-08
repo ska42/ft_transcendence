@@ -103,6 +103,7 @@ document.addEventListener('turbolinks:load', () => {
 			{
 				to_nickname = chat_nickname;
 			}
+			console.log(to_nickname);
 			send_notif(to_nickname)
 		});
 	}
