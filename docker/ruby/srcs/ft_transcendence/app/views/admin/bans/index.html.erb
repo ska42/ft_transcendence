@@ -18,7 +18,7 @@
       <tr>
         <td><%= admin_ban.login %></td>
         <td><%= admin_ban.reason %></td>
-        <td><%= admin_ban.user.nickname %></td>
+        <td><%= create_user_link(admin_ban.user) %></td>
         <td><%= create_timeago(admin_ban.updated_at) %></td>
         <td><%= link_to 'Edit', edit_admin_ban_path(admin_ban) %></td>
         <td><%= link_to 'Destroy', admin_ban_path(admin_ban), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>

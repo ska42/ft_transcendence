@@ -10,7 +10,7 @@ window.app.views.RoomSetting = Backbone.View.extend({
 	},
 	update: function() {
 		this.model.set('name', $('#modal input.name').val());
-		this.model.set('privacy', $('#modal input.privacy').val());
+		this.model.set('privacy', $('#modal select.privacy > option:selected').val());
 		if ($("#modal #no-password").is(":checked")) {
 			this.model.set('password', 'none');
 		} else {

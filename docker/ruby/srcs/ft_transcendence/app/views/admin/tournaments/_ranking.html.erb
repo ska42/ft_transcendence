@@ -10,7 +10,7 @@
   <tbody>
 	<% @tournament.users.each do |player| %>
 	  	<tr>
-	        <td><%= player.nickname %></td>	
+	        <td><%= create_user_link(player) %></td>	
 			<td><%= @tournament.games.find_all { |game| game.winner == player }.count %></td>
 		</tr>
 	<% end %>

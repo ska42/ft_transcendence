@@ -2,12 +2,12 @@
 
 <p>
   <strong>User:</strong>
-  <%= @room_ban.user.nickname %>
+  <%= create_user_link(@room_ban.user) %>
 </p>
 
 <p>
   <strong>By:</strong>
-  <%= @room_ban.by.nickname %>
+  <%= create_user_link(@room_ban.by) %>
 </p>
 
 <p>

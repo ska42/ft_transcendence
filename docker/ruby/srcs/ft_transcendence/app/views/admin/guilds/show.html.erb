@@ -6,13 +6,13 @@
 <div style="width: 100%; text-align: center;">
 	<div style="width: 25%; float: left">
 		<p><b>Owner</b></p>
-		<p><%= @guild.owner.nickname %></p>
+		<p><%= create_user_link(@guild.owner) %></p>
 	</div>
 	<div style="width: 25%; float: left">
 		<p><b>Officers</b></p>
 		<% @officers.each do |user| %>
 			<p>
-				<%= user.nickname %>
+				<%= create_user_link(user) %>
 				<%= link_to '>>', guild_officer_path(@guild, user, back: true), method: :delete, remote: true %>
 			</p>
 		<% end %>
@@ -22,7 +22,7 @@
 		<% @members.each do |user| %>
 			<p>
 				<%= link_to '<<', guild_officers_path(@guild, guild_officer: {user_id: user}, back: true), method: :post, remote: true %>
-				<%= user.nickname %>
+				<%= create_user_link(user) %>
 			</p>
 		<% end %>
 	</div>
@@ -30,7 +30,7 @@
 		<p><b>Pending invitations</b></p>
 		<% @invits.each do |user| %>
 			<p>
-				<%= user.nickname %>
+				<%= create_user_link(user) %>
 			</p>
 		<% end %>
 	</div>

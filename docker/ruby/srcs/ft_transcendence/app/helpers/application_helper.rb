@@ -35,4 +35,13 @@ module ApplicationHelper
 			data
 		end
 	end
+
+	def create_user_link(user, played=true)
+		out = link_to user.nickname, profile_path(user)
+		game = Game.where("status = ? AND (player1_id = ? OR player2_id = ?)", "running", user, user)
+		if played and user.state == "online" and game.empty? == false
+			out += link_to 'Playing!', game_path(@game)
+		end
+		out
+	end
 end

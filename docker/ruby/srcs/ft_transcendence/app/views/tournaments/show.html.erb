@@ -23,7 +23,7 @@
 <% if @tournament.winner %>
   <p>
     <strong>Winner:</strong>
-      <%= @tournament.winner.nickname %>
+      <%= create_user_link(@tournament.winner) %>
   </p>
 <% end %>
 

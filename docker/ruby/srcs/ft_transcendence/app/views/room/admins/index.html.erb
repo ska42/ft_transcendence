@@ -13,7 +13,7 @@
 	<tbody>
 		<% @room_admins.each do |room_admin| %>
 			<tr>
-				<td><%= room_admin.nickname %></td>
+				<td><%= create_user_link(room_admin) %></td>
 				<td><%= link_to 'Destroy', room_admin_path(@room, room_admin), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
 			</tr>
 		<% end %>

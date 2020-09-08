@@ -21,7 +21,7 @@
   <tbody>
     <% @profile_friends.each do |profile_friend| %>
       <tr>
-        <td><%= link_to profile_friend.nickname, profile_path(profile_friend) %></td>
+        <td><%= create_user_link(profile_friend) %></td>
 		<td><img src="<%= url_for(profile_friend.profile_pic) if profile_friend.profile_pic.attached? %>" style="max-height: 100px; max-width: 100px;"></td>
 		<td>
 			<% if profile_friend.state == "online" and Game.where("status = ? AND (player1_id = ? OR player2_id = ?)", "running", profile_friend, profile_friend).empty? == false %>

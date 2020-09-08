@@ -4,9 +4,9 @@
 	Private conversation with:
 	<strong>
 		<% if @dm.user1 == current_user %>
-			<%= @dm.user2.nickname %>
+			<%= create_user_link(@dm.user2) %>
 		<% else %>
-			<%= @dm.user1.nickname %>
+			<%= create_user_link(@dm.user1) %>
 		<% end %>
 	</strong>
 </h4>

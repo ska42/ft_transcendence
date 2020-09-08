@@ -9,7 +9,7 @@
 	</tr>
 	<% @profiles.each do |profile| %>
 		<tr>
-			<td><%= profile.nickname %></td>
+			<td><%= create_user_link(profile) %></td>
 			<td><img src="<%= url_for(profile.profile_pic) if profile.profile_pic.attached? %>" style="max-height: 100px; max-width: 100px;"></td>
 			<td>
 				<% if profile.state == "online" and Game.where("status = ? AND (player1_id = ? OR player2_id = ?)", "running", profile, profile).empty? == false %>
@@ -18,7 +18,6 @@
 					<%= profile.state %></td>
 				<% end %>
 			</td>
-			<td><%= link_to "View", profile_path(profile) %></td>
 		</tr>
 	<% end %>
 </table>

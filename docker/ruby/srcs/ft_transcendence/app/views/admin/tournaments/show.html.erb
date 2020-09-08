@@ -14,7 +14,7 @@
   <strong>Registered:</strong>
   	<ul>
 		<% @tournament.users.each do |user| %>
-			<li> <%= user.nickname %> </li>
+			<li> <%= create_user_link(user) %> </li>
 		<% end %>
 	</ul>
 </p>
@@ -32,7 +32,7 @@
 <% if @tournament.winner %>
   <p>
     <strong>Winner:</strong>
-      <%= @tournament.winner.nickname %>
+      <%= create_user_link(@tournament.winner) %>
   </p>
 <% end %>
 

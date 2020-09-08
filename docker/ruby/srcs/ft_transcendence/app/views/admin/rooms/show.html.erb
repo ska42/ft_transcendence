@@ -7,13 +7,13 @@
 <div style="width: 100%; text-align: center;">
 	<div style="width: 20%; float: left;">
 		<p><b>Owner</b></p>
-		<p><%= @room.owner.nickname %></p>
+		<p><%= create_user_link(@room.owner) %></p>
 	</div>
 	<div style="width: 20%; float: left;">
 		<p><b>Admins</b></p>
 		<% @admins.each do |user| %>
 			<p>
-				<%= user.nickname %>
+				<%= create_user_link(user) %>
 				<%= link_to '>>', room_admin_path(@room, user, back: true), method: :delete, remote: true %>
 			</p>
 		<% end %>
@@ -23,7 +23,7 @@
 		<% @members.each do |user| %>
 			<p>
 				<%= link_to '<<', room_admins_path(@room, room_admin: {user_id: user}, back: true), method: :post, remote: true %>
-				<%= user.nickname %>
+				<%= create_user_link(user) %>
 				<%= link_to 'x', room_member_path(@room, user, back: true), method: :delete, remote: true %>
 			</p>
 		<% end %>
@@ -31,13 +31,13 @@
 	<div style="width: 20%; float: left;">
 		<p><b>Bans</b></p>
 		<% @room.bans.where('end_at > ?', DateTime.now.utc).each do |ban| %>
-			<p><%= ban.user.nickname %></p>
+			<p><%= create_user_link(ban.user) %></p>
 		<% end %>
 	</div>
 	<div style="width: 20%; float: left;">
 		<p><b>Mutes</b></p>
 		<% @room.mutes.where('end_at > ?', DateTime.now.utc).each do |mute| %>
-			<p><%= mute.user.nickname %></p>
+			<p><%= create_user_link(mute.user) %></p>
 		<% end %>
 	</div>
 </div>
@@ -55,7 +55,7 @@
 		<tbody>
 			<% @room.room_messages.order("created_at DESC").each do |message| %>
 				<tr>
-					<td><%= message.user.nickname %></td>
+					<td><%= create_user_link(message.user) %></td>
 					<td><%= message.message %></td>
 					<td><%= message.created_at %></td>
 				</tr>

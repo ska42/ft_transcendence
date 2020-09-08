@@ -13,7 +13,7 @@
 	<tbody>
 		<% @admin_moderators.each do |admin_moderator| %>
 			<tr>
-				<td><%= link_to admin_moderator.nickname, profile_path(admin_moderator) %></td>
+				<td><%= create_user_link(admin_moderator) %></td>
 				<td><%= link_to 'Destroy', admin_moderator_path(admin_moderator), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
 			</tr>
 		<% end %>

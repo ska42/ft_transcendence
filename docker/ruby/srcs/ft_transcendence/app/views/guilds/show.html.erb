@@ -24,14 +24,14 @@
 
 <p>
 	<strong>Owner:</strong>
-	<%= link_to @guild.owner.nickname, profile_path(@guild.owner) %>
+	<%= create_user_link(@guild.owner) %>
 </p>
 
 <p>
 	<strong>Officers:</strong>
 	<ul class="list-group col-3">
 		<% (@guild.officers - [@guild.owner]).each do |officer| %>
-			<li class="list-group-item"><%= link_to officer.nickname, profile_path(officer) %></li>
+			<li class="list-group-item"><%= create_user_link(officer) %></li>
 		<% end %>
 	</ul>
 </p>
@@ -40,7 +40,7 @@
 	<strong>Members:</strong>
 	<ul class="list-group col-3">
 	<% (@guild.members - @guild.officers).each do |member| %>
-		<li class="list-group-item"><%= link_to member.nickname, profile_path(member) %></li>
+		<li class="list-group-item"><%= create_user_link(member) %></li>
 	<% end %>
 	</ul>
 </p>

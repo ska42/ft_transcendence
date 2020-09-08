@@ -123,7 +123,10 @@
 					<input type="text" class="name" value="<%%= name %>">
 					<br><br>
 					<h4>Privacy</h4>
-					<input type="text" class="privacy" value="<%%= privacy %>">
+					<select class="privacy">
+						<option value="public" <%%= get_privacy(privacy, "public") %>>public</option>
+						<option value="private" <%%= get_privacy(privacy, "private") %>>private</option>
+					</select>
 					<br><br>
 					<h4>Password</h4>
 					<input type="checkbox" id="no-password" name="no-password" <%%= password %>>
@@ -141,45 +144,18 @@
 	</script>
 <% end %>
 
-<% if @room.owner == current_user %>
-	<script type="text/template" class="room_members-template">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalLabel">Manage teams</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div id="modalOutput" style="display: none;"></div>
-					<h4>Name</h4>
-					<input type="text" class="name" value="<%%= name %>">
-					<br><br>
-					<h4>Privacy</h4>
-					<input type="text" class="privacy" value="<%%= privacy %>">
-					<br><br>
-					<h4>Password</h4>
-					<input type="checkbox" id="no-password" name="no-password" <%%= password %>>
-					<label for="no-password">No password?</label>
-					<br>
-					<input type="password" class="password">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalClose">Close</button>
-					<button type="button" class="btn btn-primary" id="modalSend">Edit</button>
-				</div>
-			</div>
-		</div>
-	</script>
-<% end %>
-
 <script>
-	function    format_bold(user) {
+	function	format_bold(user) {
 		if (user.state == "online") {
 			return ("<b>" + user.nickname + "</b>");
 		} else {
 			return (user.nickname);
+		}
+	}
+
+	function	get_privacy(val, cmp) {
+		if (val == cmp) {
+			return ("selected");
 		}
 	}
 

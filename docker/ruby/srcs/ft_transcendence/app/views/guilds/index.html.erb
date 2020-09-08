@@ -22,7 +22,7 @@
         <td><%= guild.name %></td>
         <td><%= guild.points %></td>
         <td><%= guild.anagram %></td>
-        <td><%= guild.owner.nickname %></td>
+        <td><%= create_user_link(guild.owner) %></td>
         <td><%= link_to 'Show', guild %></td>
 		<% if guild.owner == current_user %>
 			<td><%= link_to 'Edit', edit_guild_path(guild) %></td>

@@ -16,12 +16,13 @@
 	</thead>
 
 	<tbody>
-	<% @players.sort.reverse_each do |points, players| %>
-		<% players.sort_by(&:nickname).each do |player| %>
-			<tr>
-				<td><%= player.nickname %></td>	
-				<td><%= points %></td>
-			</tr>
+		<% @players.sort.reverse_each do |points, players| %>
+			<% players.sort_by(&:nickname).each do |player| %>
+				<tr>
+					<td><%= create_user_link(player, false) %></td>
+					<td><%= points %></td>
+				</tr>
+			<% end %>
 		<% end %>
 	<% end %>
 	</tbody>

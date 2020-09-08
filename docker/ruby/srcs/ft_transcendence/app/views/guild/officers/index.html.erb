@@ -13,7 +13,7 @@
 	<tbody>
 		<% @guild_officers.each do |guild_officer| %>
 			<tr>
-				<td><%= guild_officer.nickname %></td>
+				<td><%= create_user_link(guild_officer) %></td>
 				<td><%= link_to 'Destroy', guild_officer_path(@guild, guild_officer), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
 			</tr>
 		<% end %>
@@ -24,4 +24,3 @@
 
 <%= link_to 'New Guild Officer', new_guild_officer_path %> |
 <%= link_to 'Back', @guild %>
-

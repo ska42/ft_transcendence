@@ -13,8 +13,8 @@
   <tbody>
     <% @tournament.games.each do |game| %>
       <tr>
-        <td><%= game.player1.nickname %></td>
-        <td><%= game.player2.nickname %></td>
+        <td><%= create_user_link(game.player1, false) %></td>
+        <td><%= create_user_link(game.player2, false) %></td>
         <td><%= game.status %></td>
         <td><% if game.winner %> <%= game.winner.nickname %> <% end %></td>
         <td><%= game.start_time %></td>

@@ -17,7 +17,7 @@
 		<% @invits.each do |invit| %>
 			<tr>
 				<td><%= invit.guild.name %></td>
-				<td><%= link_to invit.by.nickname, profile_path(invit.by) %></td>
+				<td><%= create_user_link(invit.by) %></td>
 				<td><%= create_timeago(invit.updated_at) %></td>
 				<td><%= invit.state %>
 				<% if invit.state == "waiting" %>

@@ -2,12 +2,12 @@
 
 <p>
   <strong>User:</strong>
-  <%= @guild_invite.user.nickname %>
+  <%= create_user_link(@guild_invite.user) %>
 </p>
 
 <p>
   <strong>By:</strong>
-  <%= @guild_invite.by.nickname %>
+  <%= create_user_link(@guild_invite.by) %>
 </p>
 
 <p>

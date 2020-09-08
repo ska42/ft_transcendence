@@ -19,7 +19,7 @@
 	<tbody>
 		<% @profile_mutes.each do |profile_mute| %>
 			<tr>
-				<td><%= link_to profile_mute.nickname, profile_path(profile_mute) %>
+				<td><%= create_user_link(profile_mute) %>
 				<td><%= link_to 'Destroy', profile_mute_path(@profile, profile_mute), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
 			</tr>
 		<% end %>

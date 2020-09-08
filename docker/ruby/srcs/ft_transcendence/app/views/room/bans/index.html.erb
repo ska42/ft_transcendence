@@ -16,8 +16,8 @@
   <tbody>
     <% @room_bans.each do |room_ban| %>
       <tr>
-        <td><%= room_ban.user.nickname %></td>
-        <td><%= room_ban.by.nickname %></td>
+        <td><%= create_user_link(room_ban.user) %></td>
+        <td><%= create_user_link(room_ban.by) %></td>
         <td><%= room_ban.room.name %></td>
         <td><%= room_ban.end_at %></td>
         <td><%= link_to 'Show', room_ban_path(@room, room_ban) %></td>

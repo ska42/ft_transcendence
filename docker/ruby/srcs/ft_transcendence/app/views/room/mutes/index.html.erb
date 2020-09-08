@@ -16,8 +16,8 @@
   <tbody>
     <% @room_mutes.each do |room_mute| %>
       <tr>
-        <td><%= room_mute.user.nickname %></td>
-        <td><%= room_mute.by.nickname %></td>
+        <td><%= create_user_link(room_mute.user) %></td>
+        <td><%= create_user_link(room_mute.by) %></td>
         <td><%= room_mute.room.name %></td>
         <td><%= room_mute.end_at %></td>
         <td><%= link_to 'Show', room_mute_path(@room, room_mute) %></td>
