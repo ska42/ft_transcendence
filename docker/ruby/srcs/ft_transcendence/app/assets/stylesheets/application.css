@@ -14,6 +14,11 @@
  *= require_self
  */
 
+.center-vertically {
+	margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
+	transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */	
+}
+
 .page-content {
 	margin: 20px;
 }
