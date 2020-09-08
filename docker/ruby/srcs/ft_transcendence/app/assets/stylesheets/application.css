@@ -19,8 +19,20 @@
 	transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */	
 }
 
+.card {
+	box-shadow: 1px 1px 1px 1px black;
+}
+
+.card button {
+	margin-top: 5px;
+}
+
 .page-content {
 	margin: 20px;
+}
+
+.navbar {
+	box-shadow: 0px 0px 10px 0px black;
 }
 
 .avatar {
