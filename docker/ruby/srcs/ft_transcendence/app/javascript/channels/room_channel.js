@@ -1,7 +1,15 @@
 import consumer from "./consumer"
 
+var sub = null;
+
 $(document).on('turbolinks:load', function () {
-	consumer.subscriptions.create({
+	if (sub)
+	{
+		sub.unsubscribe();
+		sub = null;
+	}
+
+	sub = consumer.subscriptions.create({
 			channel: "RoomChannel",
 			room: $('[data-channel-subscribe="room"]').data('room-id')
 		}, {
