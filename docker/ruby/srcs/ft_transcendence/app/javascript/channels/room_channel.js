@@ -21,6 +21,7 @@ $(document).on('turbolinks:load', function () {
 					var content = messageTemplate.children().clone(true, true);
 					content.find('[data-role="user-avatar"]').attr("src", data.content.pic).attr("title", data.content.name.nick);
 					content.find('[data-role="message-user"]').text(data.content.name.display);
+					content.find('[data-role="message-user"]').wrap("<a href =" + data.content.link_profile + "></a>");
 					content.find('[data-role="message-text"]').text(data.content.message);
 					content.find('[data-role="message-date"] > time').attr("datetime", data.content.date.format).text(data.content.date.human).addClass("timeago");
 					element.prepend(content);

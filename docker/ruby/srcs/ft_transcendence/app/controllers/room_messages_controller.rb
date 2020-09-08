@@ -6,6 +6,7 @@ class RoomMessagesController < ApplicationController
 		unless @room_message.errors.any?
 			@room_message = @room_message.as_json
 			@room_message[:pic] = url_for(current_user.profile_pic)
+			@room_message[:link_profile] = profile_path(current_user)
 			@room_message[:name] = {'nick': current_user.nickname, 'display': ''}
 			@room_message[:name][:display] += "#{current_user.guild.anagram} | " if current_user.guild
 			@room_message[:name][:display] += @room_message[:name][:nick]

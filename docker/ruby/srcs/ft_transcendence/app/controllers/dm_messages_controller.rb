@@ -6,6 +6,7 @@ class DmMessagesController < ApplicationController
 		unless @dm_message.errors.any?
 			@dm_message = @dm_message.as_json
 			@dm_message[:pic] = url_for(current_user.profile_pic)
+			@dm_message[:link_profile] = profile_path(current_user)
 			@dm_message[:name] = {'nick': current_user.nickname, 'display': ''}
 			@dm_message[:name][:display] += "#{current_user.guild.anagram} | " if current_user.guild
 			@dm_message[:name][:display] += @dm_message[:name][:nick]
