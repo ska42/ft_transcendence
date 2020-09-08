@@ -123,8 +123,8 @@ class UpdateGameStateJob < ApplicationJob
 						@gameLogic.player_nicknames[1]
 					],
 					scores: [
-						@gameLogic.player_scores[0],
-						@gameLogic.player_scores[1]
+						@game.player1_pts,
+						@game.player2_pts
 					]
 				}
 			});
