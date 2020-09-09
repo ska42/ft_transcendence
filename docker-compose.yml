@@ -9,6 +9,9 @@ services:
     environment:
       FT_TRANSCENDENCE_DATABASE_PASSWORD: password
       TZ: Europe/Paris
+      42_OAUTH_CLIENT:
+      42_OAUTH_SECRET:
+      TOTP_KEY:
     tty: true
     stdin_open: true
     healthcheck:
