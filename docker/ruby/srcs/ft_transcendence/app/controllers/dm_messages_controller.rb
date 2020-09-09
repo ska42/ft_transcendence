@@ -24,6 +24,10 @@ class DmMessagesController < ApplicationController
 
 	protected
 		def load_entities
-			@dm = Dm.find(params.dig(:dm_message, :dm_id))
+			begin
+				@dm = Dm.find(params.dig(:dm_message, :dm_id))
+			rescue
+				redirect_to dms_path, :alert => "Dm not found" and return
+			end
 		end
 end

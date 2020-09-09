@@ -16,7 +16,11 @@ class GuildsController < ApplicationController
 	end
 
 	def invitationspost
-		@invit = GuildInvitMember.find(params[:id])
+		begin
+			@invit = GuildInvitMember.find(params[:id])
+		rescue
+			redirect_to guild_path, :alert => "Invitation not found" and return
+		end
 		redirect_to invitations_guilds_path, :alert => "Shit, go elsewhere" and return if @invit.user != current_user or @invit.state != "waiting" or (params[:invitations] and params[:invitations][:state] == "accepted" and current_user.guild and current_user.guild.owner == current_user)
 
 		respond_to do |format|

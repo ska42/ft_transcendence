@@ -29,8 +29,8 @@ class Room::MutesController < ApplicationController
 	# POST /room/mutes.json
 	def create
 		@room_mute = RoomMute.new(room_mute_params)
-	@room_mute.room = @room
-	@room_mute.by = current_user
+		@room_mute.room = @room
+		@room_mute.by = current_user
 
 		respond_to do |format|
 			if @room_mute.save
@@ -70,7 +70,11 @@ class Room::MutesController < ApplicationController
 	private
 		# Use callbacks to share common setup or constraints between actions.
 		def set_room
-			@room = Room.find(params[:room_id])
+			begin
+				@room = Room.find(params[:room_id])
+			rescue
+				redirect_to rooms_path, :alert => "Room not found" and return
+			end
 		end
 
 	def is_admin
@@ -79,7 +83,11 @@ class Room::MutesController < ApplicationController
 
 		# Use callbacks to share common setup or constraints between actions.
 		def set_room_mute
-			@room_mute = @room.mutes.find(params[:id])
+			begin
+				@room_mute = @room.mutes.find(params[:id])
+			rescue
+				redirect_to room_mutes_path, :alert => "Mute not found" and return
+			end
 		end
 
 		# Only allow a list of trusted parameters through.

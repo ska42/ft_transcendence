@@ -65,7 +65,11 @@ class ProfilesController < ApplicationController
 		end
 
 		def set_profile
-			@profile = User.find(params[:id])
+			begin
+				@profile = User.find(params[:id])
+			rescue
+				redirect_to profiles_path, :alert => "User not found" and return
+			end
 		end
 
 		def is_mine

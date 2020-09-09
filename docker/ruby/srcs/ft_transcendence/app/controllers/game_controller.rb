@@ -26,7 +26,6 @@ class GameController < ApplicationController
 	end
 
 	def spectate
-		@game = Game.find(params[:id])
 	end
 
 	def play

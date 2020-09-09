@@ -52,7 +52,11 @@ class Api::RoomSettingsController < ApiController
 	private
 		# Use callbacks to share common setup or constraints between actions.
 		def set_room_setting
-			@room_setting = Room.find(params[:id])
+			begin
+				@room_setting = Room.find(params[:id])
+			rescue
+				redirect_to rooms_path, :alert => "Room not found" and return
+			end
 		end
 
 		# Only allow a list of trusted parameters through.

@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(version: 2020_09_08_025211) do
     t.bigint "player1_id"
     t.bigint "player2_id"
     t.string "status"
-    t.integer "player1_pts"
-    t.integer "player2_pts"
+    t.integer "player1_pts", default: 0
+    t.integer "player2_pts", default: 0
     t.bigint "winner_id"
     t.string "mode"
     t.bigint "tournament_id"
@@ -278,11 +278,10 @@ ActiveRecord::Schema.define(version: 2020_09_08_025211) do
     t.bigint "war_id"
     t.datetime "start_at"
     t.datetime "end_at"
-    t.integer "max_unsanswered"
+    t.integer "unanswered"
+    t.integer "max_unanswered"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "max_unanswered", default: 0
-    t.integer "unanswered", default: 0
     t.index ["war_id"], name: "index_war_times_on_war_id"
   end
 

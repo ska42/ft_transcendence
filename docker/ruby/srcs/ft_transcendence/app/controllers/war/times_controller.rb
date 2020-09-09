@@ -107,7 +107,10 @@ class War::TimesController < ApplicationController
 	
 		# Use callbacks to share common setup or constraints between actions.
 		def set_war_time
-			@war_time = WarTime.find(params[:id])
+			begin
+				@war_time = WarTime.find(params[:id])
+			rescue
+				redirect_ti war_times_path, :alert => "WarTime not found" and return
 		end
 
 		# Only allow a list of trusted parameters through.

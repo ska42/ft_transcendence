@@ -70,7 +70,11 @@ class Room::BansController < ApplicationController
 	private
 		# Use callbacks to share common setup or constraints between actions.
 		def set_room
-			@room = Room.find(params[:room_id])
+			begin
+				@room = Room.find(params[:room_id])
+			rescue
+				redirect_to rooms_path, :alert => "Room not found" and return
+			end
 		end
 
 		def is_admin
@@ -79,7 +83,11 @@ class Room::BansController < ApplicationController
 
 		# Use callbacks to share common setup or constraints between actions.
 		def set_room_ban
-			@room_ban = @room.bans.find(params[:id])
+			begin
+				@room_ban = @room.bans.find(params[:id])
+			rescue
+				redirect_to room_bans_path, :alert => "Ban not found" and return
+			end
 		end
 
 		# Only allow a list of trusted parameters through.

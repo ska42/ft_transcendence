@@ -1,1 +1,0 @@
-require("backbonejs/collections/posts")

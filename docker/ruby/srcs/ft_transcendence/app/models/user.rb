@@ -30,8 +30,7 @@ class User < ActiveRecord::Base
 
 	devise	:rememberable, :validatable,
 			:two_factor_authenticatable,
-			:database_authenticatable,
-			:omniauthable, omniauth_providers: [:marvin, :guest],
+			:omniauthable, omniauth_providers: [:marvin],
 			:otp_secret_encryption_key => ENV['TOTP_KEY']
 
 	def self.from_omniauth(auth)
@@ -46,22 +45,6 @@ class User < ActiveRecord::Base
 			user.otp_accepted = true
 			user.staff = true if ["fgoulama", "lmartin", "ybayart"].include?(user.login)
 		end
-	end
-
-	def self.new_guest(guest)
-		valuser = nil
-		create do |user|
-			user.email = "#{guest}@mail.fr"
-			user.password = "#{guest}pass"
-			user.login = guest
-			user.nickname = guest
-			user.profile_pic.attach(io: File.open('/data/ft_transcendence/public/user.png'), filename: 'user.png')
-			user.otp_required_for_login = false
-			user.otp_accepted = true
-			user.staff = false
-			valuser = user
-		end
-		valuser
 	end
 
 	def check_columns

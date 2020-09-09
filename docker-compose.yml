@@ -9,14 +9,13 @@ services:
     environment:
       FT_TRANSCENDENCE_DATABASE_PASSWORD: password
       TZ: Europe/Paris
-      42_OAUTH_CLIENT:
-      42_OAUTH_SECRET:
+      OAUTH_CLIENT:
+      OAUTH_SECRET:
       TOTP_KEY:
     tty: true
     stdin_open: true
     healthcheck:
       test: "curl -m 20 -f http://127.0.0.1:3000 || bash /data/ft_transcendence/kill.sh"
-#      test: "ls"
       interval: 30s
       timeout: 30s
       retries: 2

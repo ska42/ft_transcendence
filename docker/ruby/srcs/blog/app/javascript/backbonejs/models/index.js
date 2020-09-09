@@ -1,1 +1,0 @@
-require("backbonejs/models/post")

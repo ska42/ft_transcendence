@@ -49,7 +49,11 @@ class Profile::FriendsController < ApplicationController
 		# Use callbacks to share common setup or constraints between actions.
 		def set_profile
 			redirect_to profile_friends_path(current_user) and return unless params[:profile_id]
-			@profile = User.find(params[:profile_id])
+			begin
+				@profile = User.find(params[:profile_id])
+			rescue
+				redirect_to profiles_path, :alert => "User not found" and return
+			end
 		end
 
 		def is_mine

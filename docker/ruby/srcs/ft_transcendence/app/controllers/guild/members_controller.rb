@@ -23,7 +23,11 @@ class Guild::MembersController < ApplicationController
 
 	private
 		def set_guild
-			@guild = Guild.find(params[:guild_id])
+			begin
+				@guild = Guild.find(params[:guild_id])
+			rescue
+				redirect_to guilds_path, :alert => "Guild not found" and return
+			end
 		end
 
 		def is_mine
