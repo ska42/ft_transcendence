@@ -6,13 +6,14 @@ import Paddle from "../custom/paddle"
 import Ball from "../custom/ball"
 
 var sub = null;
-var logKey;
+var logKey = null;
 
 document.addEventListener('turbolinks:load', () => {
 	if (sub)
 	{
 		if (logKey)
-			document.removeEventListener('keypress', logKey);
+			document.removeEventListener('keydown', logKey);
+		logKey = null;
 		sub.unsubscribe();
 		sub = null;
 	}
