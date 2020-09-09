@@ -18,7 +18,7 @@ class War < ApplicationRecord
 
 	validate :check_start_date, :on => :create
 	validate :check_end_date
-	validate :enough_points
+	validate :enough_points, :on => :create
 
 	before_update :notif
 
@@ -27,7 +27,7 @@ class War < ApplicationRecord
 	end
 
 	def check_end_date
-		errors.add(:end_at, "is before start date") if self.end_at < self.start_at
+		errors.add(:end_at, "is before start date") if self.end_at <= self.start_at
 	end
 
 	def enough_points

@@ -9,7 +9,7 @@ class WarTime < ApplicationRecord
 
 	def check_dates
 			errors.add(:start_at, "is in past") if self.start_at.past?
-			errors.add(:end_at, "is before start date") if self.end_at < self.start_at
+			errors.add(:end_at, "is before start date") if self.end_at <= self.start_at
 			errors.add(:start_at, "outside War dates") if self.start_at < self.war.start_at
 			errors.add(:end_at, "Outside War dates") if self.end_at > self.war.end_at
 			self.war.war_times.where.not(id: self.id).each do |time|

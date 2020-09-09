@@ -110,7 +110,8 @@ class War::TimesController < ApplicationController
 			begin
 				@war_time = WarTime.find(params[:id])
 			rescue
-				redirect_ti war_times_path, :alert => "WarTime not found" and return
+				redirect_to war_times_path, :alert => "WarTime not found" and return
+			end
 		end
 
 		# Only allow a list of trusted parameters through.
