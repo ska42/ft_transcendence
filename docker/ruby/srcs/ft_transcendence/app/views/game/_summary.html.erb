@@ -1,0 +1,14 @@
+<h2>Game summary</h2>
+<br>
+
+<p>
+<b>Final score:</b> <%= create_user_link(@game.player1) %> <%= @game.player1_pts %> - 
+<%= @game.player2_pts %> <%= create_user_link(@game.player2) %>
+</p>
+<p>
+<b>Result: </b>
+<% if @game.winner %>
+	<%= create_user_link(@game.winner) %> won !
+<% else %>
+	tie !
+<% end %>

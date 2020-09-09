@@ -43,7 +43,6 @@ class CreateTournamentGamesJob < ApplicationJob
 				valp2 = valplayers[valsecondHalf[j]]
 				if valp1 != nil && valp2 != nil
 					valgame = Game.create(player1: valp1, player2: valp2, status: "waiting", mode: "tournament", tournament: tournament, start_time: valtime) 
-					CheckTournamentGameJob.set(wait_until: valgame.start_time + 305).perform_later(valgame.id)
 				end
 				valplayersIndex.push(valplayersIndex.shift())
 			end

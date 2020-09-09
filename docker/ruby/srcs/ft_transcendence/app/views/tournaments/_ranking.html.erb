@@ -1,18 +1,9 @@
- <table class="table table-sm">
-  <thead>
-    <tr>
-      <th scope="col">Player</th>
-      <th scope="col">Points</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-	<% @tournament.users.each do |player| %>
-	  	<tr>
-	        <td><%= player.nickname %></td>	
-			<td><%= @tournament.games.find_all { |game| game.winner == player }.count %></td>
-		</tr>
+<table class="table table-sm">
+ 	<thead>
+	    <tr>
+	    	<th scope="col">Player</th>
+	    	<th scope="col">Points</th>
+	    </tr>
 	</thead>
 
 	<tbody>

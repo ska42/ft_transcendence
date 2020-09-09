@@ -1,25 +1,29 @@
-<table class="table table-sm">
-  <thead>
-    <tr>
-      <th scope="col">Player1</th>
-      <th scope="col">Player2</th>
-      <th scope="col">Status</th>
-      <th scope="col">Winner</th>
-      <th scope="col">Start time</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tournament.games.order("start_time ASC, status ASC").each do |game| %>
+<% if @tournament.start_time.future? %>
+  <p>Games will be shown when the tournament starts.</p>
+<% else %>
+  <table class="table table-sm">
+    <thead>
       <tr>
-        <td><%= create_user_link(game.player1, false) %></td>
-        <td><%= create_user_link(game.player2, false) %></td>
-        <td><%= game.status %></td>
-        <td><%= create_user_link(game.winner, false) if game.winner %></td>
-        <td><%= create_timeago(game.start_time) %></td>
-        <td><%= link_to 'Show', game %></td>
+        <th scope="col">Player1</th>
+        <th scope="col">Player2</th>
+        <th scope="col">Status</th>
+        <th scope="col">Winner</th>
+        <th scope="col">Start time</th>
+        <th scope="col"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @tournament.games.order("start_time ASC, status ASC").each do |game| %>
+        <tr>
+          <td><%= create_user_link(game.player1, false) %></td>
+          <td><%= create_user_link(game.player2, false) %></td>
+          <td><%= game.status %></td>
+          <td><%= create_user_link(game.winner, false) if game.winner %></td>
+          <td><%= create_timeago(game.start_time) %></td>
+          <td><%= link_to 'Show', game %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

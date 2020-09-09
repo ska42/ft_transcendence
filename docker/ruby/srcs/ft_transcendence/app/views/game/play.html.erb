@@ -1,2 +1,25 @@
-<%= render 'game' %>
-<%= render 'show_rules' %>
+<div class="container">
+	<div class="row">
+		<div class="col-8">
+			<canvas class="myCanvas"></canvas>
+		</div>
+		<div class="col-4">
+			<div class="player1" style="display:hidden;" value="<%= @game.player1.nickname %>"></div>
+			<div class="GameInfo" value="<%= @game.id %>" >
+			  <p> Game status : <div id="game_status"><%= @game.status %></div> </p>
+			  <p> Spec count : <div id="spec_count">0</div></p>
+			</div>
+			<%= render 'show_rules' %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-8">
+			<p style="text-align: center; font-size: large;" id="score"></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-8">
+			<%= render 'commands' %>
+		</div>
+	</div>
+</div>

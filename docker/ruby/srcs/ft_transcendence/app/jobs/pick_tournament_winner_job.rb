@@ -26,7 +26,7 @@ class PickTournamentWinnerJob < ApplicationJob
   			valwinner = u
   		end
   	end
-    if valwinner.guild
+    if valwinner && valwinner.guild
     	valwinner.guild.points += tournament.points_award
     	valwinner.guild.save
     end
