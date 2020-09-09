@@ -30,6 +30,21 @@ document.addEventListener('turbolinks:load', () => {
 		else
 			spectate = false;
 
+		if (!spectate)
+		{
+			if ($("#matchmaking-alert").length)
+			{
+				matchmaking.perform('unsubscribe_queue');
+				$("#matchmaking-alert").remove();
+				clearInterval(interval_matchmaking);
+			}
+			$(".alert").each(function(index) {
+				$(this).hide();
+				if (index != 0)
+					$(this).remove();
+			});
+		}
+
 		var paddles = [null, null];
 		var ball = null;
 		var inputs_id = 0;
@@ -103,21 +118,6 @@ document.addEventListener('turbolinks:load', () => {
 			game: $('.GameInfo').attr("value")
 			}, {
 			connected() {
-				if (!spectate)
-				{
-					document.addEventListener('keydown', logKey);
-					if ($("#matchmaking-alert").length)
-					{
-						matchmaking.perform('unsubscribe_queue');
-						$("#matchmaking-alert").remove();
-						clearInterval(interval_matchmaking);
-					}
-					$(".alert").each(function(index) {
-						$(this).hide();
-						if (index != 0)
-							$(this).remove();
-					});
-				}
 				setUpdateRate(50);
 			},
 
