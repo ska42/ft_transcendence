@@ -118,6 +118,8 @@ document.addEventListener('turbolinks:load', () => {
 			game: $('.GameInfo').attr("value")
 			}, {
 			connected() {
+				if (!spectate)
+					document.addEventListener('keydown', logKey);
 				setUpdateRate(50);
 			},
 
