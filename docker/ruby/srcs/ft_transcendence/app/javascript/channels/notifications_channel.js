@@ -3,6 +3,7 @@ import matchmaking from "./matchmaking_channel"
 
 var timer_queue;
 var interval_matchmaking;
+var notif = null;
 
 var add_notif = function(text, new_id)
 {
@@ -19,48 +20,55 @@ var clear_matchmaking = function()
 	clearInterval(interval_matchmaking);
 };
 
-var notif = consumer.subscriptions.create("NotificationsChannel", {
+document.addEventListener('turbolinks:load', () => {
 
-	connected() {
-	},
+	if (notif)
+	{
+		notif.unsubscribe();
+		notif = null;
+	}
 
-	disconnected() {
-	},
+	notif = consumer.subscriptions.create("NotificationsChannel", {
 
-	received(data) {
-		if (data.type && data.type == "redirect")
-			Turbolinks.visit("/game/" + data.game.id);
-		else if (data.type && data.type == "invitation")
-			add_notif(data.message + " <a href='/game/" + data.game.id + "'>Click to join</a>").show();
-		else if (data.type && data.type == "in_queue")
-		{
-			if (!$("#matchmaking-alert").length)
+		connected() {
+		},
+
+		disconnected() {
+		},
+
+		received(data) {
+			if (data.type && data.type == "redirect")
+				Turbolinks.visit("/game/" + data.game.id);
+			else if (data.type && data.type == "invitation")
+				add_notif(data.message + " <a href='/game/" + data.game.id + "'>Click to join</a>").show();
+			else if (data.type && data.type == "in_queue")
 			{
-				var text = data.message + " - " + "<span id='time_queue'>00:00</span>";
-				var new_notif = add_notif(text, "matchmaking-alert");
-				var timer_start = Date.now();
-				interval_matchmaking = setInterval(function() {
-					var res = (Date.now() - timer_start) / 1000;
-					var minutes = Math.floor(res / 60) % 60;
-					var seconds = Math.floor(res % 60);
-					if (minutes < 10)
-						minutes = "0" + minutes;
-					if (seconds < 10)
-						seconds = "0" + seconds;
-					$("#time_queue").html(minutes+":"+seconds);
-				}, 1000);
-				new_notif.find(".close").click(clear_matchmaking);
-				new_notif.show();
+				if (!$("#matchmaking-alert").length)
+				{
+					var text = data.message + " - " + "<span id='time_queue'>00:00</span>";
+					var new_notif = add_notif(text, "matchmaking-alert");
+					var timer_start = Date.now();
+					interval_matchmaking = setInterval(function() {
+						var res = (Date.now() - timer_start) / 1000;
+						var minutes = Math.floor(res / 60) % 60;
+						var seconds = Math.floor(res % 60);
+						if (minutes < 10)
+							minutes = "0" + minutes;
+						if (seconds < 10)
+							seconds = "0" + seconds;
+						$("#time_queue").html(minutes+":"+seconds);
+					}, 1000);
+					new_notif.find(".close").click(clear_matchmaking);
+					new_notif.show();
+				}
+			}
+			else
+			{
+				createToast("New notification: " + data.title + "<br><a href=" + data.href + ">Open</a>");
 			}
 		}
-		else
-		{
-			createToast("New notification: " + data.title + "<br><a href=" + data.href + ">Open</a>");
-		}
-	}
-});
+	});
 
-document.addEventListener('turbolinks:load', () => {
 	var button = $("#game_invite");
 	var default_button = $("#default");
 	window.invite_button = $(".invite_button");
