@@ -53,6 +53,9 @@
 	<% else %>
 		<%= link_to raw('Unmute this user<br>'), profile_mute_path(current_user, @profile, back: true), method: :delete, remote: true %>
 	<% end %>
+	<% if current_user.guild and current_user.guild.officers.include?(current_user) and current_user.guild.members.exclude?(@profile) and current_user.guild.invites.where(state: "waiting").map(&:user).exclude?(@profile) %>
+		<%= link_to 'Invite in your guild', guild_invites_path(current_user.guild, "guild_invite": {"user_id": @profile.id}, back: true), method: :post, remote: true %>
+	<% end %>
 <% end %>
 
 <br><hr>

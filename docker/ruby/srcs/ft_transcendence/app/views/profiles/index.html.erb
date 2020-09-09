@@ -1,14 +1,14 @@
 <h2>Users</h2>
 <br>
 
-<table style="width: 100%; text-align: center;">
+<table class="table">
 	<thead>
 	<tr>
-		<th>Nickname</th>
-		<th>Profile image</th>
-		<th>Rank</th>
-		<th>Status</th>
-		<th></th>
+		<th scope="col">Nickname</th>
+		<th scope="col">Profile image</th>
+		<th scope="col">Status</th>
+		<th scope="col">Rank</th>
+		<th scope="col">Guild</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -16,7 +16,6 @@
 		<tr style="cursor: pointer;">
 			<td><%= create_user_link(profile) %></td>
 			<td><img src="<%= url_for(profile.profile_pic) if profile.profile_pic.attached? %>" style="max-height: 100px; max-width: 100px;"></td>
-			<td><%= profile.rank %></td>
 			<td>
 				<% if profile.state == "online" and Game.where("status = ? AND (player1_id = ? OR player2_id = ?)", "running", profile, profile).empty? == false %>
 					In a game
@@ -24,6 +23,8 @@
 					<%= profile.state %></td>
 				<% end %>
 			</td>
+			<td><%= profile.rank %></td>
+			<td><%= link_to profile.guild.name, profile.guild if profile.guild %></td>
 		</tr>
 	<% end %>
 	</tbody>

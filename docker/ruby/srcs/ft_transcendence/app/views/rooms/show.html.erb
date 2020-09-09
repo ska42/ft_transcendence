@@ -119,21 +119,23 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<div id="modalOutput" style="display: none;"></div>
-					<h4>Name</h4>
-					<input type="text" class="name" value="<%%= name %>">
-					<br><br>
-					<h4>Privacy</h4>
-					<select class="privacy">
-						<option value="public" <%%= get_privacy(privacy, "public") %>>public</option>
-						<option value="private" <%%= get_privacy(privacy, "private") %>>private</option>
-					</select>
-					<br><br>
-					<h4>Password</h4>
-					<input type="checkbox" id="no-password" name="no-password" <%%= password %>>
-					<label for="no-password">No password?</label>
-					<br>
-					<input type="password" class="password">
+					<form>
+						<div id="modalOutput" style="display: none;"></div>
+						<h4>Name</h4>
+						<input type="text" class="name" value="<%%= name %>">
+						<br><br>
+						<h4>Privacy</h4>
+						<select class="privacy">
+							<option value="public" <%%= get_privacy(privacy, "public") %>>public</option>
+							<option value="private" <%%= get_privacy(privacy, "private") %>>private</option>
+						</select>
+						<br><br>
+						<h4>Password</h4>
+						<input type="checkbox" id="no-password" name="no-password" <%%= password %>>
+						<label for="no-password">No password?</label>
+						<br>
+						<input type="password" class="password">
+					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalClose">Close</button>

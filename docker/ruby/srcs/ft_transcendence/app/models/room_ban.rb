@@ -7,7 +7,15 @@ class RoomBan < ApplicationRecord
 
 	validate	:not_in_past
 
+	after_create	:notif_create
+
 	def not_in_past
 		errors.add(:nickname, "In the past") if self.end_at.past?
+	end
+
+	def notif_create
+		room = Room.find(self.room.id)
+		output = {"type": "update", "content": {"id": self.room.id}}
+		RoomChannel.broadcast_to room, output
 	end
 end

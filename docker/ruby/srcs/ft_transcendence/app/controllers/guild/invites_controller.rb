@@ -24,7 +24,9 @@ class Guild::InvitesController < ApplicationController
 
 		respond_to do |format|
 			if @guild_invite.save
-				format.html { redirect_to guild_invites_url, notice: 'Invite was successfully created.' }
+				back_page = guild_invites_url
+				back_page = URI(request.referer).path if params[:back]
+				format.html { redirect_to back_page, notice: 'Invite was successfully created.' }
 			else
 				format.html { render :new }
 				format.json { render json: @guild_invite.errors, status: :unprocessable_entity }
