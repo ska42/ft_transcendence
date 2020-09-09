@@ -12,6 +12,9 @@ class UpdateGameStateJob < ApplicationJob
 				Thread.new { @game.reload(lock: true) }
 				vali = 0
 			end
+			if @game.status == "waiting"
+				@gameLogic.send_config
+			end
 			if @game.status == "running"
 				process_inputs(@gameLogic)
 			  	if @gameLogic.state == "play"
