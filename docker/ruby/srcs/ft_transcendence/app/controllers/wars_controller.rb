@@ -55,7 +55,7 @@ class WarsController < ApplicationController
 				error_msg = "War already locked" unless error_msg or @war.state == "waiting for war times"
 				error_msg = "Missing permission" unless error_msg or @war.guild1.officers.include?(current_user)
 				error_msg = "Other guild already on war" if error_msg == nil and params[:state] == "declared" and War.where("id != ? AND ((guild1_id = ? AND state IN (?)) OR (guild2_id = ? AND state IN (?)))", @war, @war.guild2, ["waiting for war times", "declared", "pending", "active"], @war.guild2, ["pending", "active"]).empty? == false
-				error_msg = "Other guild doesn't have enough points (#{@war.guild2.points})" unless error_msg or @war.points_to_win <= @war.guild2.points
+				error_msg = "Other guild doesn't have enough points (#{@war.guild2.points})" if error_msg == nil and @war.points_to_win <= @war.guild2.points and params[:state] == "declared"
 			else
 				error_msg = "War already locked" unless error_msg or @war.state == "declared"
 				error_msg = "Missing permission" unless error_msg or @war.guild2.officers.include?(current_user)

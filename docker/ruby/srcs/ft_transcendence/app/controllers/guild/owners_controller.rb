@@ -12,7 +12,7 @@ class Guild::OwnersController < ApplicationController
 	# POST /guild/owners.json
 	def create
 		respond_to do |format|
-			if @guild.update(owner_id: @user.id)
+			if @guild.update(owner_id: @owner.id)
 				back_page = @guild
 				back_page = URI(request.referer).path if params[:back]
 				format.html { redirect_to back_page, notice: 'Owner was successfully updated.' }
@@ -38,13 +38,13 @@ class Guild::OwnersController < ApplicationController
 		end
 
 		def not_empty
-			@guild_officers = @guild.officers - [@guild.owner]
+			@guild_officers = @guild.officers.where.not(id: @guild.owner.id)
 			redirect_to @guild, :alert => "No officer available" and return if @guild_officers.empty?
 		end
 
 		def set_user
 			begin
-				@user = @guild_officers.find(params[:owner_id]).first
+				@owner = @guild_officers.find(params[:owner_id])
 			rescue
 				redirect_to @guild, :alert => "User not found" and return
 			end
