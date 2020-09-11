@@ -12,7 +12,7 @@ class Room::OwnersController < ApplicationController
 	# POST /room/owners.json
 	def create
 		respond_to do |format|
-			if @room.update(owner_id: @user.id)
+			if @room.update(owner_id: @owner.id)
 				back_page = @room
 				back_page = URI(request.referer).path if params[:back]
 				format.html { redirect_to back_page, notice: 'Owner was successfully updated.' }
@@ -38,13 +38,13 @@ class Room::OwnersController < ApplicationController
 		end
 
 		def not_empty
-			@room_admins = @room.admins - [@room.owner]
+			@room_admins = @room.admins.where.not(id: @room.owner.id)
 			redirect_to @room, :alert => "No admin available" and return if @room_admins.empty?
 		end
 
 		def set_user
 			begin
-				@user = @room_admins.find(params[:owner_id]).first
+				@owner = @room_admins.find(params[:owner_id])
 			rescue
 				redirect_to @room, :alert => "User not found" and return
 			end
